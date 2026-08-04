@@ -97,7 +97,7 @@
 body{margin:0;background:#fffdfa;color:#1f1c19;font-family:system-ui,"Noto Sans SC","PingFang SC","Microsoft YaHei",Arial,sans-serif;
 line-height:1.75;font-size:16px;-webkit-font-smoothing:antialiased;
 text-rendering:optimizeLegibility}
-.wrap-wrap42{max-width:860px;margin:0 auto;padding:32px 20px 64px}
+.pane-stack12{max-width:860px;margin:0 auto;padding:32px 20px 64px}
 h1{font-size:1.85rem;line-height:1.4;margin:.2em 0 .6em;letter-spacing:-.01em}
 h2{font-size:1.3rem;margin:2.2em 0 .7em;padding-bottom:.35em;
 border-bottom:2px solid #fde68a}
@@ -115,21 +115,21 @@ th{background:#fffbeb;font-weight:600}
 ul,ol{padding-left:1.5em}
 ul{list-style-type:circle}
 li{margin:.4em 0}
-.pane-stack12{background:#fffbeb;border-left:3px solid #b45309;
+.wrap-bar51{background:#fffbeb;border-left:3px solid #b45309;
 border-radius:0 6px 6px 0;padding:14px 18px;margin:1.4em 0}
-.head-row17{display:inline-block;background:#b45309;color:#fff;
+.wrap-wrap42{display:inline-block;background:#b45309;color:#fff;
 padding:12px 26px;border-radius:6px;font-weight:600;margin:.6em 0}
-.head-row17:hover{opacity:.88;text-decoration:none}
-.wrap-bar51{color:#71717a;font-size:.86rem;margin-top:3em;
+.wrap-wrap42:hover{opacity:.88;text-decoration:none}
+.panel-slot28{color:#71717a;font-size:.86rem;margin-top:3em;
 padding-top:1.2em;border-top:1px solid #fde68a}
-.panel-slot28{border:1px solid #fde68a;border-radius:6px;
+.list-row55{border:1px solid #fde68a;border-radius:6px;
 padding:2px 18px;margin:.8em 0}
-.list-row55{overflow-x:auto}
+.item-deck61{overflow-x:auto}
 @media(max-width:600px){
   body{font-size:15px}
   h1{font-size:1.5rem}
   h2{font-size:1.18rem}
-  .wrap-wrap42{padding:20px 16px 48px}
+  .pane-stack12{padding:20px 16px 48px}
   table{font-size:.85rem}
   th,td{padding:8px}
 }
@@ -138,7 +138,7 @@ padding:2px 18px;margin:.8em 0}
 }</style>
 </head>
 <body>
-<main class="wrap-wrap42">
+<main class="pane-stack12">
 <h1>gpt-5.6-luna API 中转站 2026 接入与价格说明</h1>
 <p>gpt-5.6-luna 的模型发布时间待实测。已知模型定位为低成本、大批量处理场景，并兼容 -high、-xhigh、-low、-medium、-max、-ultra 后缀变体。本文整理该模型在中转站的基准价格、分组倍率与接入前需要确认的事项。</p>
 <section>
@@ -153,8 +153,8 @@ padding:2px 18px;margin:.8em 0}
 </section>
 <section>
 <h2>什么是 gpt-5.6-luna API 中转站？</h2>
-<p><strong>一句话说清中转站：帮你把多家模型的接口统一成 OpenAI 那一套，顺便解决网络和支付问题。</strong></p>
-<p>国内开发者调用 gpt-5.6-luna 官方接口时，普遍会撞上三堵墙：网络不通、没有海外信用卡、账号被风控。</p>
+<p><strong>API 中转站的作用是在你和模型厂商之间加一层网关：你按 OpenAI 的标准格式发请求，网关负责转发、协议转换和计费。</strong></p>
+<p>想在国内生产环境用上 gpt-5.6-luna，官方直连这条路通常会在网络、支付、风控三个环节掉链子。</p>
 <p>OpenLux 把这一层做成了公共服务：<a href="https://api.openlux.ai/register?channel=c_lkv0gzwj" rel="nofollow noopener" data-cta="link">OpenLux gpt-5.6-luna API 中转站</a> 聚合了 449 个在售模型 主流模型，统一走 OpenAI 兼容格式，国内网络可直接访问，支持人民币结算。</p>
 </section>
 <section>
@@ -168,9 +168,20 @@ padding:2px 18px;margin:.8em 0}
 <p>以上能力在 <a href="https://api.openlux.ai/register?channel=c_lkv0gzwj" rel="nofollow noopener" data-cta="link">gpt-5.6-luna API 中转站</a> 均已上线，可注册后自行验证。</p>
 </section>
 <section>
+<h2>支持的模型与价格</h2>
+<div class="item-deck61">
+<table>
+<thead><tr><th>模型</th><th>适用场景</th><th>上下文</th><th>输入价格</th><th>输出价格</th><th>实测首字延迟</th></tr></thead>
+<tbody>
+<tr><td>gpt-5.6-luna</td><td>低成本、大批量处理</td><td>待实测</td><td>$0.2 / 100 万 token（基准价）</td><td>$1.2 / 100 万 token（基准价）</td><td>待实测</td></tr>
+</tbody>
+</table>
+</div>
+<p><small>价格以 <a href="https://api.openlux.ai/register?channel=c_lkv0gzwj" rel="nofollow noopener" data-cta="link">查看详情</a> 实时页面为准，本页更新于 2026年08月04日。</small></p>
+</section>
+<section>
 <h2>这个站还有这些内容</h2>
-<ul class="bar-item61">
-<li><a href="https://a37836323.github.io/gpt-5-6-luna-api/pricing/">gpt-5.6-luna API 多少钱？各版本价格与计费方式</a><span>各版本基准价、计费口径与倍率算法</span></li>
+<ul class="frame-head59">
 <li><a href="https://a37836323.github.io/gpt-5-6-luna-api/quickstart/">gpt-5.6-luna API 在国内怎么接入？</a><span>接入步骤与可直接复制的代码</span></li>
 <li><a href="https://a37836323.github.io/gpt-5-6-luna-api/compare/">gpt-5.6-luna 用官方直连还是中转？逐项对比</a><span>逐项对比，含中转方案的局限</span></li>
 <li><a href="https://a37836323.github.io/gpt-5-6-luna-api/faq/">gpt-5.6-luna API 常见问题</a><span>接入时最常遇到的问题</span></li>
@@ -179,10 +190,10 @@ padding:2px 18px;margin:.8em 0}
 <section>
 <h2>开始使用</h2>
 <p>查看接入信息并测试 gpt-5.6-luna</p>
-<p><a class="head-row17" href="https://api.openlux.ai/register?channel=c_lkv0gzwj" rel="nofollow noopener" data-cta="button">立即注册并生成密钥</a></p>
-<p>官方地址：<a href="https://api.openlux.ai/register?channel=c_lkv0gzwj" rel="nofollow noopener" data-cta="link">查看详情</a></p>
+<p><a class="wrap-wrap42" href="https://api.openlux.ai/register?channel=c_lkv0gzwj" rel="nofollow noopener" data-cta="button">注册领取额度，开始调用</a></p>
+<p>官方地址：<a href="https://api.openlux.ai/register?channel=c_lkv0gzwj" rel="nofollow noopener" data-cta="link">OpenLux</a></p>
 </section>
-<p class="wrap-bar51">最后更新：2026年08月04日　|　本页由 OpenLux 编写并维护。<br>所有性能与价格数据来自实测，如与官网不一致，以官网实时页面为准。</p>
+<p class="panel-slot28">最后更新：2026年08月04日　|　本页由 OpenLux 编写并维护。<br>所有性能与价格数据来自实测，如与官网不一致，以官网实时页面为准。</p>
 </main>
 <script>
 (function(){
