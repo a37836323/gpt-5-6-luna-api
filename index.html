@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>gpt-5.6-luna API 中转站 2026：价格与接入说明</title>
+<meta name="description" content="2026 gpt-5.6-luna API 中转站接入说明：基准输入价格 $0.2/100 万 token、输出价格 $1.2/100 万 token，分组倍率影响最终价格。">
+<meta name="keywords" content="gpt-5.6-luna API 中转站,gpt-5.6-luna API,gpt-5.6 Luna,OpenAI API 中转,模型 API 接入,LLM API,API 分组倍率,token 价格">
+<link rel="canonical" href="https://a37836323.github.io/gpt-5-6-luna-api/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:title" content="gpt-5.6-luna API 中转站 2026：价格与接入说明">
+<meta property="og:description" content="2026 gpt-5.6-luna API 中转站接入说明：基准输入价格 $0.2/100 万 token、输出价格 $1.2/100 万 token，分组倍率影响最终价格。">
+<meta property="og:url" content="https://api.openlux.ai/">
+<meta property="og:site_name" content="OpenLux">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="gpt-5.6-luna API 中转站 2026：价格与接入说明">
+<meta name="twitter:description" content="2026 gpt-5.6-luna API 中转站接入说明：基准输入价格 $0.2/100 万 token、输出价格 $1.2/100 万 token，分组倍率影响最终价格。">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://api.openlux.ai/#organization",
+      "name": "OpenLux",
+      "url": "https://api.openlux.ai",
+      "description": "2026 gpt-5.6-luna API 中转站接入说明：基准输入价格 $0.2/100 万 token、输出价格 $1.2/100 万 token，分组倍率影响最终价格。",
+      "sameAs": [
+        "https://openlux.ai",
+        "https://doc.openlux.ai"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://a37836323.github.io/gpt-5-6-luna-api/#website",
+      "url": "https://a37836323.github.io/gpt-5-6-luna-api",
+      "name": "gpt-5.6-luna API 中转站 2026：价格与接入说明",
+      "inLanguage": "zh-CN",
+      "publisher": {
+        "@id": "https://api.openlux.ai/#organization"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://a37836323.github.io/gpt-5-6-luna-api/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "首页",
+          "item": "https://api.openlux.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "gpt-5.6-luna API 中转站",
+          "item": "https://a37836323.github.io/gpt-5-6-luna-api"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://a37836323.github.io/gpt-5-6-luna-api/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "gpt-5.6-luna API 中转站的基准价格是多少？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "gpt-5.6-luna 的基准输入价格为 $0.2 / 100 万 token，基准输出价格为 $1.2 / 100 万 token，缓存命中基准价格为 $0.02 / 100 万 token。最终价格还需乘以用户所在分组的倍率。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "gpt-5.6-luna 适合什么场景？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "gpt-5.6-luna 主打低成本、大批量处理场景。具体任务效果、吞吐与延迟均需按实际输入和接入环境测试。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "gpt-5.6-luna 支持哪些后缀变体？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "gpt-5.6-luna 兼容 -high、-xhigh、-low、-medium、-max、-ultra 后缀变体。实际可调用的变体应以当前平台的模型列表和接口返回为准。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "最终费用如何计算？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "最终费用按基准价乘以用户所在分组的倍率计算。调用前应确认账户分组，因为不同分组的倍率不同。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "中转接入与官方直连有什么差异？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "中转接入会多一跳链路，官方新功能可能存在适配延迟。接入前应核对调用地址、认证方式、模型名、错误响应和计费规则。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "gpt-5.6-luna 的上下文长度和首字延迟是多少？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "gpt-5.6-luna 的上下文长度和实测首字延迟目前均为待实测。应使用与生产请求相近的输入规模进行测量。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "中转站是否只支持页面列出的模型？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "不是，当前在售模型总数为 449 个。已知价格表只列出调用量较高的 150 个模型，另有 299 个模型未列出。"
+          }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://a37836323.github.io/gpt-5-6-luna-api/#howto",
+      "name": "如何接入 gpt-5.6-luna API",
+      "totalTime": "PT5M",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "确认分组",
+          "text": "先在账户侧确认当前所在分组及其倍率，最终价格按基准价乘以该倍率计算。"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "核对模型名",
+          "text": "使用 gpt-5.6-luna 作为模型名；需要后缀变体时，先确认目标后缀在当前接入环境中的可用性。"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "获取接入信息",
+          "text": "从平台控制台确认 API 地址、认证要求和可调用模型列表，不要将示例中的环境变量名称视为固定接口规范。"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "配置调用参数",
+          "text": "将 API 地址、密钥和模型名放入运行环境，通过小流量请求核对响应结构与费用记录。"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 5,
+          "name": "记录实测结果",
+          "text": "上线前记录首字延迟、错误响应、重试策略和分组计费结果；未验证的指标应标记为待实测。"
+        }
+      ]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://a37836323.github.io/gpt-5-6-luna-api/#application",
+      "name": "OpenLux API",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "url": "https://api.openlux.ai",
+      "description": "2026 gpt-5.6-luna API 中转站接入说明：基准输入价格 $0.2/100 万 token、输出价格 $1.2/100 万 token，分组倍率影响最终价格。",
+      "offers": {
+        "@type": "Offer",
+        "price": "待实测",
+        "priceCurrency": "CNY",
+        "url": "https://api.openlux.ai",
+        "description": "按 token 计费，gpt-5.6-luna 的最终费用以基准价乘以账户所在分组倍率计算。"
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://a37836323.github.io/gpt-5-6-luna-api/#article",
+      "headline": "gpt-5.6-luna API 中转站 2026 接入与价格说明",
+      "datePublished": "2026-08-03",
+      "dateModified": "2026-08-04",
+      "inLanguage": "zh-CN",
+      "author": {
+        "@id": "https://api.openlux.ai/#organization"
+      },
+      "publisher": {
+        "@id": "https://api.openlux.ai/#organization"
+      },
+      "mainEntityOfPage": "https://a37836323.github.io/gpt-5-6-luna-api"
+    }
+  ]
+}
+</script>
+<style>*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:#fffdfa;color:#1f1c19;font-family:system-ui,"Noto Sans SC","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+line-height:1.75;font-size:16px;-webkit-font-smoothing:antialiased;
+text-rendering:optimizeLegibility}
+.panel-slot28{max-width:860px;margin:0 auto;padding:32px 20px 64px}
+h1{font-size:1.85rem;line-height:1.4;margin:.2em 0 .6em;letter-spacing:-.01em}
+h2{font-size:1.3rem;margin:2.2em 0 .7em;padding-bottom:.35em;
+border-bottom:2px solid #fde68a}
+h3{font-size:1.08rem;margin:1.6em 0 .5em}
+a{color:#b45309;text-decoration:none}
+a:hover,a:focus-visible{text-decoration:underline}
+code{background:#fffbeb;padding:.15em .4em;border-radius:2px;
+font-size:.9em;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+pre{background:#fffbeb;border:1px solid #fde68a;border-radius:6px;
+padding:16px;overflow-x:auto;font-size:.86rem;line-height:1.6}
+pre code{background:none;padding:0}
+table{width:100%;border-collapse:collapse;margin:1.2em 0;font-size:.94rem}
+th,td{border:1px solid #fde68a;padding:10px 12px;text-align:left}
+th{background:#fffbeb;font-weight:600}
+ul,ol{padding-left:1.5em}
+ul{list-style-type:circle}
+li{margin:.4em 0}
+.head-row17{background:#fffbeb;border-left:3px solid #b45309;
+border-radius:0 6px 6px 0;padding:14px 18px;margin:1.4em 0}
+.wrap-bar51{display:inline-block;background:#b45309;color:#fff;
+padding:12px 26px;border-radius:6px;font-weight:600;margin:.6em 0}
+.wrap-bar51:hover{opacity:.88;text-decoration:none}
+.list-row55{color:#71717a;font-size:.86rem;margin-top:3em;
+padding-top:1.2em;border-top:1px solid #fde68a}
+.wrap-frame99{border:1px solid #fde68a;border-radius:6px;
+padding:2px 18px;margin:.8em 0}
+.deck-row43{overflow-x:auto}
+@media(max-width:600px){
+  body{font-size:15px}
+  h1{font-size:1.5rem}
+  h2{font-size:1.18rem}
+  .panel-slot28{padding:20px 16px 48px}
+  table{font-size:.85rem}
+  th,td{padding:8px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}</style>
+</head>
+<body>
+<main class="panel-slot28">
+<h1>gpt-5.6-luna API 中转站 2026 接入与价格说明</h1>
+<p>gpt-5.6-luna 的模型发布时间待实测。已知模型定位为低成本、大批量处理场景，并兼容 -high、-xhigh、-low、-medium、-max、-ultra 后缀变体。本文整理该模型在中转站的基准价格、分组倍率与接入前需要确认的事项。</p>
+<section>
+<h2>最新动态：2026-08-03 定价数据更新</h2>
+<ul>
+<li>面板定价接口于 <strong>2026-08-03T17:12:59Z</strong> 拉取。</li>
+<li>当前在售模型总数为 <strong>449 个</strong>，公开表格仅列出调用量较高的 150 个模型。</li>
+<li><strong>gpt-5.6-luna</strong> 基准输入价格为 $0.2 / 100 万 token，基准输出价格为 $1.2 / 100 万 token。</li>
+<li>缓存命中基准价格为 $0.02 / 100 万 token，最终费用受所在分组倍率影响。</li>
+</ul>
+<p><a href="https://api.openlux.ai/register?channel=c_lkv0gzwj" rel="nofollow noopener" data-cta="link">点此进入</a></p>
+</section>
+<section>
+<h2>什么是 gpt-5.6-luna API 中转站？</h2>
+<p><strong>一句话说清中转站：帮你把多家模型的接口统一成 OpenAI 那一套，顺便解决网络和支付问题。</strong></p>
+<p>gpt-5.6-luna 在国内的接入难点不在技术，而在网络能不能通、钱怎么付、账号会不会被风控。</p>
+<p>OpenLux 把这一层做成了公共服务：<a href="https://api.openlux.ai/register?channel=c_lkv0gzwj" rel="nofollow noopener" data-cta="link">OpenLux gpt-5.6-luna API 中转站</a> 聚合了 449 个在售模型 主流模型，统一走 OpenAI 兼容格式，国内网络可直接访问，支持人民币结算。</p>
+</section>
+<section>
+<h2>支持的模型与价格</h2>
+<div class="deck-row43">
+<table>
+<thead><tr><th>模型</th><th>适用场景</th><th>上下文</th><th>输入价格</th><th>输出价格</th><th>实测首字延迟</th></tr></thead>
+<tbody>
+<tr><td>gpt-5.6-luna</td><td>低成本、大批量处理</td><td>待实测</td><td>$0.2 / 100 万 token（基准价）</td><td>$1.2 / 100 万 token（基准价）</td><td>待实测</td></tr>
+</tbody>
+</table>
+</div>
+<p><small>价格以 <a href="https://api.openlux.ai/register?channel=c_lkv0gzwj" rel="nofollow noopener" data-cta="link">gpt-5.6-luna API 中转站</a> 实时页面为准，本页更新于 2026年08月04日。</small></p>
+</section>
+<section>
+<h2>为什么需要 API 中转？</h2>
+<ul>
+<li><strong>面向批量处理定位</strong>：gpt-5.6-luna 的已知定位是低成本、大批量处理场景，可作为需要控制单次调用成本的模型候选。</li>
+<li><strong>提供后缀变体</strong>：模型兼容 -high、-xhigh、-low、-medium、-max、-ultra 后缀变体；各变体的实际行为与可用性应在接入前确认。</li>
+<li><strong>价格计算可追溯</strong>：价格以面板自身定价接口为数据来源，基准价格与分组倍率共同决定最终费用。</li>
+<li><strong>可在同一在售目录中选型</strong>：面板显示 449 个在售模型；本页聚焦 gpt-5.6-luna，不代表目录只包含本页列出的模型。</li>
+</ul>
+<p>以上能力在 <a href="https://api.openlux.ai/register?channel=c_lkv0gzwj" rel="nofollow noopener" data-cta="link">查看详情</a> 均已上线，可注册后自行验证。</p>
+</section>
+<section>
+<h2>官方直连与通过中转接入的确认项</h2>
+<div class="deck-row43">
+<table>
+<thead><tr><th>对比项</th><th>官方直连</th><th>通过中转接入</th></tr></thead>
+<tbody>
+<tr><td>调用地址</td><td>以官方文档为准</td><td>以平台提供的接入信息为准</td></tr>
+<tr><td>认证方式</td><td>以官方文档为准</td><td>以平台提供的认证要求为准</td></tr>
+<tr><td>模型名</td><td>以官方支持列表为准</td><td>可使用 gpt-5.6-luna，并确认后缀变体可用性</td></tr>
+<tr><td>输入价格</td><td>待实测</td><td>基准价 $0.2 / 100 万 token，最终按分组倍率计算</td></tr>
+<tr><td>输出价格</td><td>待实测</td><td>基准价 $1.2 / 100 万 token，最终按分组倍率计算</td></tr>
+<tr><td>缓存命中价格</td><td>待实测</td><td>基准价 $0.02 / 100 万 token，最终按分组倍率计算</td></tr>
+<tr><td>新功能可用时间</td><td>以官方发布节奏为准</td><td>待确认，可能受平台适配节奏影响</td></tr>
+</tbody>
+</table>
+</div>
+<p class="head-row17">中转接入会多一跳链路，调用路径与故障排查边界会增加；官方的新模型、参数或功能也可能存在适配延迟。生产使用前应分别验证模型名、接口行为、计费分组和错误处理。</p>
+</section>
+<section>
+<h2>gpt-5.6-luna API 在国内怎么调用？</h2>
+<p>迁移成本几乎为零，改 <code>base_url</code> 和 <code>api_key</code> 两个值就行，其余业务代码一行不用动。</p>
+<ol>
+<li><strong>确认分组</strong>：先在账户侧确认当前所在分组及其倍率，最终价格按基准价乘以该倍率计算。</li>
+<li><strong>核对模型名</strong>：使用 gpt-5.6-luna 作为模型名；需要后缀变体时，先确认目标后缀在当前接入环境中的可用性。</li>
+<li><strong>获取接入信息</strong>：从平台控制台确认 API 地址、认证要求和可调用模型列表，不要将示例中的环境变量名称视为固定接口规范。</li>
+<li><strong>配置调用参数</strong>：将 API 地址、密钥和模型名放入运行环境，通过小流量请求核对响应结构与费用记录。</li>
+<li><strong>记录实测结果</strong>：上线前记录首字延迟、错误响应、重试策略和分组计费结果；未验证的指标应标记为待实测。</li>
+</ol>
+<h3>完整代码示例</h3>
+<pre><code class="language-python">import json
+import os
+from urllib.request import Request, urlopen
+
+base_url = os.environ[&quot;API_BASE_URL&quot;].rstrip(&quot;/&quot;)
+api_key = os.environ[&quot;API_KEY&quot;]
+
+payload = {
+    &quot;model&quot;: &quot;gpt-5.6-luna&quot;,
+    &quot;messages&quot;: [
+        {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;请返回一行测试文本。&quot;}
+    ]
+}
+
+request = Request(
+    f&quot;{base_url}/chat/completions&quot;,
+    data=json.dumps(payload).encode(&quot;utf-8&quot;),
+    headers={
+        &quot;Authorization&quot;: f&quot;Bearer {api_key}&quot;,
+        &quot;Content-Type&quot;: &quot;application/json&quot;
+    },
+    method=&quot;POST&quot;
+)
+
+with urlopen(request) as response:
+    print(json.dumps(json.load(response), ensure_ascii=False, indent=2))
+</code></pre>
+<p><a href="https://api.openlux.ai/register?channel=c_lkv0gzwj" rel="nofollow noopener" data-cta="link">OpenLux</a></p>
+</section>
+<section>
+<h2>常见问题</h2>
+<div class="wrap-frame99"><h3>gpt-5.6-luna API 中转站的基准价格是多少？</h3><p>gpt-5.6-luna 的基准输入价格为 $0.2 / 100 万 token，基准输出价格为 $1.2 / 100 万 token，缓存命中基准价格为 $0.02 / 100 万 token。最终价格还需乘以用户所在分组的倍率。</p></div>
+<div class="wrap-frame99"><h3>gpt-5.6-luna 适合什么场景？</h3><p>gpt-5.6-luna 主打低成本、大批量处理场景。具体任务效果、吞吐与延迟均需按实际输入和接入环境测试。</p></div>
+<div class="wrap-frame99"><h3>gpt-5.6-luna 支持哪些后缀变体？</h3><p>gpt-5.6-luna 兼容 -high、-xhigh、-low、-medium、-max、-ultra 后缀变体。实际可调用的变体应以当前平台的模型列表和接口返回为准。</p></div>
+<div class="wrap-frame99"><h3>最终费用如何计算？</h3><p>最终费用按基准价乘以用户所在分组的倍率计算。调用前应确认账户分组，因为不同分组的倍率不同。</p></div>
+<div class="wrap-frame99"><h3>中转接入与官方直连有什么差异？</h3><p>中转接入会多一跳链路，官方新功能可能存在适配延迟。接入前应核对调用地址、认证方式、模型名、错误响应和计费规则。</p></div>
+<div class="wrap-frame99"><h3>gpt-5.6-luna 的上下文长度和首字延迟是多少？</h3><p>gpt-5.6-luna 的上下文长度和实测首字延迟目前均为待实测。应使用与生产请求相近的输入规模进行测量。</p></div>
+<div class="wrap-frame99"><h3>中转站是否只支持页面列出的模型？</h3><p>不是，当前在售模型总数为 449 个。已知价格表只列出调用量较高的 150 个模型，另有 299 个模型未列出。</p></div>
+<p>还有其他问题？完整文档与客服入口见 <a href="https://api.openlux.ai/register?channel=c_lkv0gzwj" rel="nofollow noopener" data-cta="link">OpenLux</a>。</p>
+</section>
+<section>
+<h2>开始使用</h2>
+<p>查看接入信息并测试 gpt-5.6-luna</p>
+<p><a class="wrap-bar51" href="https://api.openlux.ai/register?channel=c_lkv0gzwj" rel="nofollow noopener" data-cta="button">注册领取额度，开始调用</a></p>
+<p>官方地址：<a href="https://api.openlux.ai/register?channel=c_lkv0gzwj" rel="nofollow noopener" data-cta="link">OpenLux官网</a></p>
+</section>
+<p class="list-row55">最后更新：2026年08月04日　|　本页由 OpenLux 编写并维护。<br>所有性能与价格数据来自实测，如与官网不一致，以官网实时页面为准。</p>
+</main>
+
+</body>
+</html>
