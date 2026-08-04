@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>gpt-5.6-luna API 怎么调用：接入步骤与代码示例（2026）</title>
+<meta name="description" content="gpt-5.6-luna 的接入步骤与可直接复制的代码示例。">
+<meta name="keywords" content="gpt-5.6-luna API 中转站,gpt-5.6-luna API,gpt-5.6 Luna,OpenAI API 中转,模型 API 接入,LLM API,API 分组倍率,token 价格">
+<link rel="canonical" href="https://a37836323.github.io/gpt-5-6-luna-api/quickstart/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:title" content="gpt-5.6-luna API 怎么调用：接入步骤与代码示例（2026）">
+<meta property="og:description" content="gpt-5.6-luna 的接入步骤与可直接复制的代码示例。">
+<meta property="og:url" content="https://api.openlux.ai/">
+<meta property="og:site_name" content="OpenLux">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="gpt-5.6-luna API 怎么调用：接入步骤与代码示例（2026）">
+<meta name="twitter:description" content="gpt-5.6-luna 的接入步骤与可直接复制的代码示例。">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://api.openlux.ai/#organization",
+      "name": "OpenLux",
+      "url": "https://api.openlux.ai",
+      "description": "2026 gpt-5.6-luna API 中转站接入说明：基准输入价格 $0.2/100 万 token、输出价格 $1.2/100 万 token，分组倍率影响最终价格。",
+      "sameAs": [
+        "https://openlux.ai",
+        "https://doc.openlux.ai"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://a37836323.github.io/gpt-5-6-luna-api/#website",
+      "url": "https://a37836323.github.io/gpt-5-6-luna-api",
+      "name": "gpt-5.6-luna API 中转站 2026：价格与接入说明",
+      "inLanguage": "zh-CN",
+      "publisher": {
+        "@id": "https://api.openlux.ai/#organization"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://a37836323.github.io/gpt-5-6-luna-api/quickstart/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "OpenLux",
+          "item": "https://api.openlux.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "gpt-5.6-luna API 中转站",
+          "item": "https://a37836323.github.io/gpt-5-6-luna-api/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "gpt-5.6-luna API 在国内怎么接入？",
+          "item": "https://a37836323.github.io/gpt-5-6-luna-api/quickstart/"
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://a37836323.github.io/gpt-5-6-luna-api/#howto",
+      "name": "如何接入 gpt-5.6-luna API",
+      "totalTime": "PT5M",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "确认分组",
+          "text": "先在账户侧确认当前所在分组及其倍率，最终价格按基准价乘以该倍率计算。"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "核对模型名",
+          "text": "使用 gpt-5.6-luna 作为模型名；需要后缀变体时，先确认目标后缀在当前接入环境中的可用性。"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "获取接入信息",
+          "text": "从平台控制台确认 API 地址、认证要求和可调用模型列表，不要将示例中的环境变量名称视为固定接口规范。"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "配置调用参数",
+          "text": "将 API 地址、密钥和模型名放入运行环境，通过小流量请求核对响应结构与费用记录。"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 5,
+          "name": "记录实测结果",
+          "text": "上线前记录首字延迟、错误响应、重试策略和分组计费结果；未验证的指标应标记为待实测。"
+        }
+      ]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://a37836323.github.io/gpt-5-6-luna-api/#application",
+      "name": "OpenLux API",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "url": "https://api.openlux.ai",
+      "description": "2026 gpt-5.6-luna API 中转站接入说明：基准输入价格 $0.2/100 万 token、输出价格 $1.2/100 万 token，分组倍率影响最终价格。",
+      "offers": {
+        "@type": "Offer",
+        "price": "待实测",
+        "priceCurrency": "CNY",
+        "url": "https://api.openlux.ai",
+        "description": "按 token 计费，gpt-5.6-luna 的最终费用以基准价乘以账户所在分组倍率计算。"
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://a37836323.github.io/gpt-5-6-luna-api/quickstart/#article",
+      "headline": "gpt-5.6-luna API 在国内怎么接入？",
+      "datePublished": "2026-08-03",
+      "dateModified": "2026-08-04",
+      "inLanguage": "zh-CN",
+      "author": {
+        "@id": "https://api.openlux.ai/#organization"
+      },
+      "publisher": {
+        "@id": "https://api.openlux.ai/#organization"
+      },
+      "mainEntityOfPage": "https://a37836323.github.io/gpt-5-6-luna-api/quickstart/"
+    }
+  ]
+}
+</script>
+<style>*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:#fffdfa;color:#1f1c19;font-family:system-ui,"Noto Sans SC","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+line-height:1.75;font-size:16px;-webkit-font-smoothing:antialiased;
+text-rendering:optimizeLegibility}
+.frame-head59{max-width:860px;margin:0 auto;padding:32px 20px 64px}
+h1{font-size:1.85rem;line-height:1.4;margin:.2em 0 .6em;letter-spacing:-.01em}
+h2{font-size:1.3rem;margin:2.2em 0 .7em;padding-bottom:.35em;
+border-bottom:2px solid #fde68a}
+h3{font-size:1.08rem;margin:1.6em 0 .5em}
+a{color:#b45309;text-decoration:none}
+a:hover,a:focus-visible{text-decoration:underline}
+code{background:#fffbeb;padding:.15em .4em;border-radius:2px;
+font-size:.9em;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+pre{background:#fffbeb;border:1px solid #fde68a;border-radius:6px;
+padding:16px;overflow-x:auto;font-size:.86rem;line-height:1.6}
+pre code{background:none;padding:0}
+table{width:100%;border-collapse:collapse;margin:1.2em 0;font-size:.94rem}
+th,td{border:1px solid #fde68a;padding:10px 12px;text-align:left}
+th{background:#fffbeb;font-weight:600}
+ul,ol{padding-left:1.5em}
+ul{list-style-type:circle}
+li{margin:.4em 0}
+.box-wrap13{background:#fffbeb;border-left:3px solid #b45309;
+border-radius:0 6px 6px 0;padding:14px 18px;margin:1.4em 0}
+.bar-item61{display:inline-block;background:#b45309;color:#fff;
+padding:12px 26px;border-radius:6px;font-weight:600;margin:.6em 0}
+.bar-item61:hover{opacity:.88;text-decoration:none}
+.frame-pane91{color:#71717a;font-size:.86rem;margin-top:3em;
+padding-top:1.2em;border-top:1px solid #fde68a}
+.wrap-wrap67{border:1px solid #fde68a;border-radius:6px;
+padding:2px 18px;margin:.8em 0}
+.card-panel47{overflow-x:auto}
+@media(max-width:600px){
+  body{font-size:15px}
+  h1{font-size:1.5rem}
+  h2{font-size:1.18rem}
+  .frame-head59{padding:20px 16px 48px}
+  table{font-size:.85rem}
+  th,td{padding:8px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}</style>
+</head>
+<body>
+<main class="frame-head59">
+<p class="block-list59"><a href="https://a37836323.github.io/gpt-5-6-luna-api/">首页</a> ／ gpt-5.6-luna</p>
+<h1>gpt-5.6-luna API 在国内怎么接入？</h1>
+<section>
+<h2>gpt-5.6-luna API 在国内怎么调用？</h2>
+<p>改造量就两行——<code>base_url</code> 和 <code>api_key</code>。SDK、请求体、响应解析全部沿用原有写法。</p>
+<ol>
+<li><strong>确认分组</strong>：先在账户侧确认当前所在分组及其倍率，最终价格按基准价乘以该倍率计算。</li>
+<li><strong>核对模型名</strong>：使用 gpt-5.6-luna 作为模型名；需要后缀变体时，先确认目标后缀在当前接入环境中的可用性。</li>
+<li><strong>获取接入信息</strong>：从平台控制台确认 API 地址、认证要求和可调用模型列表，不要将示例中的环境变量名称视为固定接口规范。</li>
+<li><strong>配置调用参数</strong>：将 API 地址、密钥和模型名放入运行环境，通过小流量请求核对响应结构与费用记录。</li>
+<li><strong>记录实测结果</strong>：上线前记录首字延迟、错误响应、重试策略和分组计费结果；未验证的指标应标记为待实测。</li>
+</ol>
+<h3>完整代码示例</h3>
+<pre><code class="language-python">import json
+import os
+from urllib.request import Request, urlopen
+
+base_url = os.environ[&quot;API_BASE_URL&quot;].rstrip(&quot;/&quot;)
+api_key = os.environ[&quot;API_KEY&quot;]
+
+payload = {
+    &quot;model&quot;: &quot;gpt-5.6-luna&quot;,
+    &quot;messages&quot;: [
+        {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;请返回一行测试文本。&quot;}
+    ]
+}
+
+request = Request(
+    f&quot;{base_url}/chat/completions&quot;,
+    data=json.dumps(payload).encode(&quot;utf-8&quot;),
+    headers={
+        &quot;Authorization&quot;: f&quot;Bearer {api_key}&quot;,
+        &quot;Content-Type&quot;: &quot;application/json&quot;
+    },
+    method=&quot;POST&quot;
+)
+
+with urlopen(request) as response:
+    print(json.dumps(json.load(response), ensure_ascii=False, indent=2))
+</code></pre>
+<p><a href="https://api.openlux.ai/register?channel=c_lkv0gzwj" rel="nofollow noopener" data-cta="link">点此进入</a></p>
+</section>
+<section>
+<h2>开始使用</h2>
+<p>查看接入信息并测试 gpt-5.6-luna</p>
+<p><a class="bar-item61" href="https://api.openlux.ai/register?channel=c_lkv0gzwj" rel="nofollow noopener" data-cta="button">注册领取额度，开始调用</a></p>
+<p>官方地址：<a href="https://api.openlux.ai/register?channel=c_lkv0gzwj" rel="nofollow noopener" data-cta="link">OpenLux gpt-5.6-luna API 中转站</a></p>
+</section>
+<p class="frame-pane91">最后更新：2026年08月04日　|　本页由 OpenLux 编写并维护。<br>所有性能与价格数据来自实测，如与官网不一致，以官网实时页面为准。</p>
+</main>
+<script>
+(function(){
+  try{
+    var EP='https://tk.openlux.ai/collect',S='gpt-5-6-luna-api',L='zh-CN',V=1;
+    // 会话内唯一，仅存在于内存：刷新即变，不落 cookie 也不落 storage
+    var sid=Math.random().toString(36).slice(2)+Date.now().toString(36);
+    function send(type,extra){
+      try{
+        var p={v:V,t:type,s:S,l:L,sid:sid,
+               r:document.referrer||'',
+               p:location.pathname||'/',
+               q:location.search||'',
+               sw:screen.width||0,
+               tz:(Intl.DateTimeFormat().resolvedOptions()||{}).timeZone||''};
+        for(var k in extra){p[k]=extra[k];}
+        var body=JSON.stringify(p);
+        if(navigator.sendBeacon){
+          navigator.sendBeacon(EP,new Blob([body],{type:'text/plain;charset=UTF-8'}));
+        }else{
+          // 老浏览器兜底。keepalive 让请求在页面卸载后仍能发完
+          fetch(EP,{method:'POST',body:body,keepalive:true,mode:'no-cors'});
+        }
+      }catch(e){}
+    }
+    // 预渲染的页面不算一次真实访问，等真正可见了再报
+    if(document.visibilityState==='prerender'){
+      document.addEventListener('visibilitychange',function h(){
+        if(document.visibilityState!=='prerender'){
+          document.removeEventListener('visibilitychange',h);send('view');
+        }
+      });
+    }else{
+      send('view');
+    }
+    // 出站点击：只记去向和位置，不记任何个人信息
+    document.addEventListener('click',function(e){
+      var a=e.target&&e.target.closest?e.target.closest('a[data-cta]'):null;
+      if(!a)return;
+      send('click',{c:a.getAttribute('data-cta')||'',h:a.href||''});
+    },{capture:true,passive:true});
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
