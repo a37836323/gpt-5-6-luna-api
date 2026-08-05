@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>api error 400 this organization has been disabled 怎么办？2026排查</title>
+<meta name="description" content="api error 400 this organization has been disabled 通常指向组织或账号侧状态，不是单次请求参数错误。本文按账号级、请求级、额度级区分排查，并说明确认账号被禁后的 gpt-5.6-luna 替代路径与限制。">
+<meta name="keywords" content="gpt-5.6-luna API 中转站,gpt-5.6-luna API,gpt-5.6 Luna,OpenAI API 中转,模型 API 接入,LLM API,API 分组倍率,token 价格">
+<link rel="canonical" href="https://a37836323.github.io/gpt-5-6-luna-api/api-error-disabled-2026/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:title" content="api error 400 this organization has been disabled 怎么办？2026排查">
+<meta property="og:description" content="api error 400 this organization has been disabled 通常指向组织或账号侧状态，不是单次请求参数错误。本文按账号级、请求级、额度级区分排查，并说明确认账号被禁后的 gpt-5.6-luna 替代路径与限制。">
+<meta property="og:url" content="https://api.openlux.ai/">
+<meta property="og:site_name" content="OpenLux">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="api error 400 this organization has been disabled 怎么办？2026排查">
+<meta name="twitter:description" content="api error 400 this organization has been disabled 通常指向组织或账号侧状态，不是单次请求参数错误。本文按账号级、请求级、额度级区分排查，并说明确认账号被禁后的 gpt-5.6-luna 替代路径与限制。">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://api.openlux.ai/#organization",
+      "name": "OpenLux",
+      "url": "https://api.openlux.ai",
+      "description": "2026 gpt-5.6-luna API 中转站接入说明：基准输入价格 $0.2/100 万 token、输出价格 $1.2/100 万 token，分组倍率影响最终价格。",
+      "sameAs": [
+        "https://openlux.ai",
+        "https://doc.openlux.ai"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://a37836323.github.io/gpt-5-6-luna-api/#website",
+      "url": "https://a37836323.github.io/gpt-5-6-luna-api",
+      "name": "gpt-5.6-luna API 中转站 2026：价格与接入说明",
+      "inLanguage": "zh-CN",
+      "publisher": {
+        "@id": "https://api.openlux.ai/#organization"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://a37836323.github.io/gpt-5-6-luna-api/api-error-disabled-2026/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "OpenLux",
+          "item": "https://api.openlux.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "gpt-5.6-luna API 中转站",
+          "item": "https://a37836323.github.io/gpt-5-6-luna-api/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "遇到 this organization has been disabled，先判断是不是账号被禁",
+          "item": "https://a37836323.github.io/gpt-5-6-luna-api/api-error-disabled-2026/"
+        }
+      ]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://a37836323.github.io/gpt-5-6-luna-api/#application",
+      "name": "OpenLux API",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "url": "https://api.openlux.ai",
+      "description": "2026 gpt-5.6-luna API 中转站接入说明：基准输入价格 $0.2/100 万 token、输出价格 $1.2/100 万 token，分组倍率影响最终价格。",
+      "offers": {
+        "@type": "Offer",
+        "price": "待实测",
+        "priceCurrency": "CNY",
+        "url": "https://api.openlux.ai",
+        "description": "按 token 计费，gpt-5.6-luna 的最终费用以基准价乘以账户所在分组倍率计算。"
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://a37836323.github.io/gpt-5-6-luna-api/api-error-disabled-2026/#article",
+      "headline": "遇到 this organization has been disabled，先判断是不是账号被禁",
+      "datePublished": "2026-08-03",
+      "dateModified": "2026-08-05",
+      "inLanguage": "zh-CN",
+      "author": {
+        "@id": "https://api.openlux.ai/#organization"
+      },
+      "publisher": {
+        "@id": "https://api.openlux.ai/#organization"
+      },
+      "mainEntityOfPage": "https://a37836323.github.io/gpt-5-6-luna-api/api-error-disabled-2026/"
+    }
+  ]
+}
+</script>
+<style>*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:#fffdfa;color:#1f1c19;font-family:system-ui,"Noto Sans SC","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+line-height:1.75;font-size:16px;-webkit-font-smoothing:antialiased;
+text-rendering:optimizeLegibility}
+.head-row17{max-width:860px;margin:0 auto;padding:32px 20px 64px}
+h1{font-size:1.85rem;line-height:1.4;margin:.2em 0 .6em;letter-spacing:-.01em}
+h2{font-size:1.3rem;margin:2.2em 0 .7em;padding-bottom:.35em;
+border-bottom:2px solid #fde68a}
+h3{font-size:1.08rem;margin:1.6em 0 .5em}
+a{color:#b45309;text-decoration:none}
+a:hover,a:focus-visible{text-decoration:underline}
+code{background:#fffbeb;padding:.15em .4em;border-radius:2px;
+font-size:.9em;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+pre{background:#fffbeb;border:1px solid #fde68a;border-radius:6px;
+padding:16px;overflow-x:auto;font-size:.86rem;line-height:1.6}
+pre code{background:none;padding:0}
+table{width:100%;border-collapse:collapse;margin:1.2em 0;font-size:.94rem}
+th,td{border:1px solid #fde68a;padding:10px 12px;text-align:left}
+th{background:#fffbeb;font-weight:600}
+ul,ol{padding-left:1.5em}
+ul{list-style-type:circle}
+li{margin:.4em 0}
+.wrap-wrap42{background:#fffbeb;border-left:3px solid #b45309;
+border-radius:0 6px 6px 0;padding:14px 18px;margin:1.4em 0}
+.deck-row43{display:inline-block;background:#b45309;color:#fff;
+padding:12px 26px;border-radius:6px;font-weight:600;margin:.6em 0}
+.deck-row43:hover{opacity:.88;text-decoration:none}
+.pane-stack12{color:#71717a;font-size:.86rem;margin-top:3em;
+padding-top:1.2em;border-top:1px solid #fde68a}
+.wrap-bar51{border:1px solid #fde68a;border-radius:6px;
+padding:2px 18px;margin:.8em 0}
+.panel-slot28{overflow-x:auto}
+@media(max-width:600px){
+  body{font-size:15px}
+  h1{font-size:1.5rem}
+  h2{font-size:1.18rem}
+  .head-row17{padding:20px 16px 48px}
+  table{font-size:.85rem}
+  th,td{padding:8px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}</style>
+</head>
+<body>
+<main class="head-row17">
+<p class="list-row55"><a href="https://a37836323.github.io/gpt-5-6-luna-api/">首页</a> ／ gpt-5.6-luna</p>
+<h1>遇到 this organization has been disabled，先判断是不是账号被禁</h1>
+<p>如果 Cline 或其他客户端返回「api error 400 this organization has been disabled」，优先把它当作组织或账号级故障处理，而不是反复修改 prompt。先保留完整响应和请求时间，再用一个最小请求确认范围；若多个模型、多个项目都失败，才进入替代方案评估。</p>
+<section>
+<h2>这个报错原文是什么，通常在哪个场景出现？</h2>
+<p>需要重点记录的真实报错是「api error 400 this organization has been disabled」，搜索时也常被简写为「cline报错api error」。它可能出现在 Cline 发起补全、代码生成或工具调用时，客户端界面未必展示完整响应，所以第一步是打开客户端日志或保留 API 返回体。</p>
+<p>不要把「401 Unauthorized」和「429」套进这个页面的结论：本次补全实测没有出现这两条。排查时请保存状态码、响应 JSON、请求时间、使用的 model 名称，以及是否只有 Cline 失败，避免把不同故障混在一起。</p>
+<h2>this organization has been disabled 到底意味着什么？</h2>
+<p>这条 400 更接近账号或组织状态异常，而不是单个请求的额度耗尽。错误原文直接包含 organization has been disabled，因此优先检查账号侧状态；仅仅重试相同请求、改 prompt 或降低输出长度，通常不能证明问题已经解决。</p>
+<p>仍要区分三个范围：如果所有模型和项目都失败，优先按账号级处理；如果只有某个 model 或某种请求失败，仍需检查请求级配置；如果响应明确出现额度或计费字段，才按额度级核对。仅凭一条客户端摘要，不能判断禁用原因，也不能推断恢复时间。</p>
+<h2>怎么按优先级确认是账号侧问题？</h2>
+<p>先在同一环境中复现一次，并把完整响应写入文件，确认状态码和服务端原文，而不是只看 Cline 的一句摘要。可复制下面的命令；其中 URL、请求体和环境变量按你当前使用的接口文档填写：`curl -sS -D response.headers -o response.body -w &quot;HTTP %{http_code}\n&quot; &quot;$API_URL&quot; -H &quot;Authorization: Bearer $API_KEY&quot; -H &quot;Content-Type: application/json&quot; --data &quot;$REQUEST_JSON&quot;`。</p>
+<p>再用同一个 key 做最小请求，并只改变 model，记录结果是否一致：`for model in &quot;$MODEL_A&quot; &quot;$MODEL_B&quot;; do printf &#x27;%s\n&#x27; &quot;=== $model ===&quot;; jq --arg model &quot;$model&quot; &#x27;.model=$model&#x27; request.json | curl -sS -w &#x27;\nHTTP %{http_code}\n&#x27; &quot;$API_URL&quot; -H &quot;Authorization: Bearer $API_KEY&quot; -H &quot;Content-Type: application/json&quot; --data-binary @-; done`。如果多个 model 都返回同一段 disabled 文本，账号级判断的证据更充分。</p>
+<p>最后排除本地配置污染：`env | grep -E &#x27;^(API_URL|API_KEY|OPENAI|MODEL)=&#x27;`。确认没有把旧 key、旧组织标识或错误的 base URL 注入 Cline；同时对比另一台环境或另一份明确有效的凭据。不要在日志、工单或命令输出中公开完整 API key。</p>
+<h2>确认是账号侧问题后，怎么切换到 gpt-5.6-luna？</h2>
+<p>如果原账号确实处于 disabled 状态，继续重试原凭据没有意义。替代路径是改用提供 gpt-5.6-luna 的中转接口，并将客户端的 model 指向 `gpt-5.6-luna`；它在 2026-08-04T16:16:08Z 的定价接口数据中列出，类型为 chat。</p>
+<p>切换前先做一个最小请求，再恢复 Cline 的完整工作流。不要把“能返回一次”理解为对原账号的解禁，也不要承诺所有 Cline 功能都无需调整。可用如下方式检查新接口返回的状态：`curl -sS -w &#x27;\nHTTP %{http_code}\n&#x27; &quot;$NEW_API_URL&quot; -H &quot;Authorization: Bearer $NEW_API_KEY&quot; -H &quot;Content-Type: application/json&quot; --data &#x27;{&quot;model&quot;:&quot;gpt-5.6-luna&quot;,&quot;messages&quot;:[{&quot;role&quot;:&quot;user&quot;,&quot;content&quot;:&quot;回复 OK&quot;}]}&#x27;`。</p>
+<p>已知资料只确认该 model 和接口定价记录，不包含本次账号的恢复结果、可用率、SLA 或 Cline 兼容性实测。因此仍需自行验证流式输出、工具调用、上下文行为和错误处理；没有实测的数据统一记为「待实测」。</p>
+<h2>切换到替代接口时，哪些限制必须先说清？</h2>
+<p>gpt-5.6-luna 的基准单价是输入 $0.2/100 万 token、输出 $1.2/100 万 token、缓存命中 $0.02/100 万 token，但最终价格还要乘以用户所在分组倍率。这个价格信息只用于识别计价口径，不等同于你的实际账单，也不能据此判断原账号为什么被禁用。</p>
+<p>定价接口在该时间点列出 452 个在售模型，其中下表只展示调用量最高的 150 个；这不代表平台只支持这些模型，也不代表某个分组、路由或时刻一定可用。替代前应确认新凭据的权限、model 名称和客户端请求格式，保留原接口配置以便回滚。</p>
+<p>如果你的目标只是恢复原组织，替代接口不能代替原服务方的申诉或账号处理；如果目标是让开发流程先恢复，则应把替代接口视为独立凭据和独立故障边界，不要继续复用已被禁用的 key。</p>
+<h2>怎么避免再次遇到 organization has been disabled？</h2>
+<p>最有效的预防是把账号状态、请求失败和额度告警分开监控，并在日志中保留状态码、错误原文、model、时间和请求关联 ID。告警只记录脱敏后的凭据标识，避免把 API key 直接写进 Cline 日志、CI 输出或工单。</p>
+<p>为关键工作流准备可验证的备用配置，但不要在未知原因时自动高频重试同一凭据。重试策略应区分 400、401、429 等不同响应；本页只对真实出现的 disabled 报错给出账号侧判断，其他错误仍应依据服务端原文单独排查。</p>
+<p>定期用最小请求验证备用路径，并记录「待实测」项目，例如 Cline 的流式、工具调用和失败恢复行为。这样发生账号侧故障时，可以先判断是凭据问题还是客户端问题，再决定是否切换到 gpt-5.6-luna。</p>
+<p>还有其他问题？完整文档与客服入口见 <a href="https://api.openlux.ai/register?channel=c_lkv0gzwj" rel="nofollow noopener" data-cta="link">点此进入</a>。</p>
+</section>
+<section>
+<h2>这个站还有这些内容</h2>
+<ul class="row-wrap69">
+<li><a href="https://a37836323.github.io/gpt-5-6-luna-api/quickstart/">gpt-5.6-luna API 在国内怎么接入？</a><span>接入步骤与可直接复制的代码</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-luna-api/compare/">gpt-5.6-luna 用官方直连还是中转？逐项对比</a><span>逐项对比，含中转方案的局限</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-luna-api/faq/">gpt-5.6-luna API 常见问题</a><span>接入时最常遇到的问题</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-luna-api/gpt-56-luna-api-buy/">国内怎么买 gpt-5.6-luna API：下单前应核对什么</a><span>购买渠道与结算说明</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-luna-api/gpt56-luna-payment-methods/">没有国际信用卡，gpt-5.6-luna API 的付款方式怎么确认</a><span>gpt-5.6-luna 支付方式</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-luna-api/api-relay-explained/">API 中转站的工作原理：gpt-5.6-luna 请求为何会多一跳</a><span>理解 API 中转原理</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-luna-api/claude-code-proxy-config/">在 Claude Code 里接入 gpt-5.6-luna</a><span>Claude Code 中转配置</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-luna-api/gpt-56-luna-cost-value/">gpt-5.6-luna 便宜吗：按用量和分组倍率算 2026 成本</a><span>gpt-5.6-luna 成本测算</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-luna-api/gpt-luna-account-risk/">使用 gpt-5.6-luna API，账号被限制的风险该怎么判断？</a><span>账号风险与数据边界</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-luna-api/gpt-56-luna-free-trial/">gpt-5.6-luna API 能免费用吗：先确认额度规则，再开始试用</a><span>核对免费试用条件</span></li>
+</ul>
+</section>
+<section>
+<h2>开始使用</h2>
+<p>查看接入信息并测试 gpt-5.6-luna</p>
+<p><a class="deck-row43" href="https://api.openlux.ai/register?channel=c_lkv0gzwj" rel="nofollow noopener" data-cta="button">免费开始使用</a></p>
+<p>官方地址：<a href="https://api.openlux.ai/register?channel=c_lkv0gzwj" rel="nofollow noopener" data-cta="link">OpenLux gpt-5.6-luna API 中转站</a></p>
+</section>
+<p class="pane-stack12">最后更新：2026年08月05日　|　本页由 OpenLux 编写并维护。<br>所有性能与价格数据来自实测，如与官网不一致，以官网实时页面为准。</p>
+</main>
+<script>
+(function(){
+  try{
+    var EP='https://tk.openlux.ai/collect',S='gpt-5-6-luna-api',L='zh-CN',V=1;
+    var sid=Math.random().toString(36).slice(2)+Date.now().toString(36);
+    function send(type,extra){
+      try{
+        var p={v:V,t:type,s:S,l:L,sid:sid,
+               r:document.referrer||'',
+               p:location.pathname||'/',
+               q:location.search||'',
+               sw:screen.width||0,
+               tz:(Intl.DateTimeFormat().resolvedOptions()||{}).timeZone||''};
+        for(var k in extra){p[k]=extra[k];}
+        var body=JSON.stringify(p);
+        if(navigator.sendBeacon){
+          navigator.sendBeacon(EP,new Blob([body],{type:'text/plain;charset=UTF-8'}));
+        }else{
+          fetch(EP,{method:'POST',body:body,keepalive:true,mode:'no-cors'});
+        }
+      }catch(e){}
+    }
+    if(document.visibilityState==='prerender'){
+      document.addEventListener('visibilitychange',function h(){
+        if(document.visibilityState!=='prerender'){
+          document.removeEventListener('visibilitychange',h);send('view');
+        }
+      });
+    }else{
+      send('view');
+    }
+    document.addEventListener('click',function(e){
+      var a=e.target&&e.target.closest?e.target.closest('a[data-cta]'):null;
+      if(!a)return;
+      send('click',{c:a.getAttribute('data-cta')||'',h:a.href||''});
+    },{capture:true,passive:true});
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
