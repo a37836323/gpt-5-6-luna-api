@@ -124,7 +124,7 @@
       "@id": "https://a37836323.github.io/gpt-5-6-luna-api/quickstart/#article",
       "headline": "gpt-5.6-luna API 在国内怎么接入？",
       "datePublished": "2026-08-03",
-      "dateModified": "2026-08-05",
+      "dateModified": "2026-10-26",
       "inLanguage": "zh-CN",
       "author": {
         "@id": "https://api.openlux.ai/#organization"
@@ -141,7 +141,7 @@
 body{margin:0;background:#fffdfa;color:#1f1c19;font-family:system-ui,"Noto Sans SC","PingFang SC","Microsoft YaHei",Arial,sans-serif;
 line-height:1.75;font-size:16px;-webkit-font-smoothing:antialiased;
 text-rendering:optimizeLegibility}
-.box-wrap13{max-width:860px;margin:0 auto;padding:32px 20px 64px}
+.row-box10{max-width:860px;margin:0 auto;padding:32px 20px 64px}
 h1{font-size:1.85rem;line-height:1.4;margin:.2em 0 .6em;letter-spacing:-.01em}
 h2{font-size:1.3rem;margin:2.2em 0 .7em;padding-bottom:.35em;
 border-bottom:2px solid #fde68a}
@@ -159,21 +159,21 @@ th{background:#fffbeb;font-weight:600}
 ul,ol{padding-left:1.5em}
 ul{list-style-type:circle}
 li{margin:.4em 0}
-.frame-pane91{background:#fffbeb;border-left:3px solid #b45309;
+.wrap-frame99{background:#fffbeb;border-left:3px solid #b45309;
 border-radius:0 6px 6px 0;padding:14px 18px;margin:1.4em 0}
-.frame-head59{display:inline-block;background:#b45309;color:#fff;
+.row-frame71{display:inline-block;background:#b45309;color:#fff;
 padding:12px 26px;border-radius:6px;font-weight:600;margin:.6em 0}
-.frame-head59:hover{opacity:.88;text-decoration:none}
-.wrap-wrap67{color:#71717a;font-size:.86rem;margin-top:3em;
+.row-frame71:hover{opacity:.88;text-decoration:none}
+.stack-wrap10{color:#71717a;font-size:.86rem;margin-top:3em;
 padding-top:1.2em;border-top:1px solid #fde68a}
-.card-panel47{border:1px solid #fde68a;border-radius:6px;
+.bar-card19{border:1px solid #fde68a;border-radius:6px;
 padding:2px 18px;margin:.8em 0}
-.block-list59{overflow-x:auto}
+.slot-block82{overflow-x:auto}
 @media(max-width:600px){
   body{font-size:15px}
   h1{font-size:1.5rem}
   h2{font-size:1.18rem}
-  .box-wrap13{padding:20px 16px 48px}
+  .row-box10{padding:20px 16px 48px}
   table{font-size:.85rem}
   th,td{padding:8px}
 }
@@ -182,13 +182,14 @@ padding:2px 18px;margin:.8em 0}
 }</style>
 </head>
 <body>
-<main class="box-wrap13">
-<p data-notice="price-20261025" style="margin:0 0 16px;padding:10px 14px;border:1px solid #f0c36d;background:#fff8e6;color:#5c4400;border-radius:6px;font-size:14px;line-height:1.6">本页价格与模型信息整理于 2026 年 8 月，可能已有变化，请以官网为准：<a href="https://www.openlux.ai/pricing?utm_source=gpt-5-6-luna-api&amp;utm_medium=satellite&amp;utm_campaign=price_notice" style="color:#0b57d0">OpenLux 官网价格页</a></p>
-<p class="deck-grid20"><a href="https://a37836323.github.io/gpt-5-6-luna-api/">首页</a> ／ gpt-5.6-luna</p>
+<main class="row-box10">
+<p data-notice="price-20261025" style="margin:0 0 16px;padding:10px 14px;border:1px solid #f0c36d;background:#fff8e6;color:#5c4400;border-radius:6px;font-size:14px;line-height:1.6">本页价格与模型信息可能已有变化，请以官网为准：<a href="https://www.openlux.ai/pricing?utm_source=gpt-5-6-luna-api&amp;utm_medium=satellite&amp;utm_campaign=price_notice" style="color:#0b57d0">OpenLux 官网价格页</a></p>
+<p class="row-deck55"><a href="https://a37836323.github.io/gpt-5-6-luna-api/">首页</a> ／ gpt-5.6-luna</p>
 <h1>gpt-5.6-luna API 在国内怎么接入？</h1>
+
 <section>
 <h2>gpt-5.6-luna API 在国内怎么调用？</h2>
-<p>改造量就两行——<code>base_url</code> 和 <code>api_key</code>。SDK、请求体、响应解析全部沿用原有写法。</p>
+<p>把 <code>base_url</code> 配置为对应接口地址，使用你的 <code>api_key</code>，然后核对模型与参数支持情况。</p>
 <ol>
 <li><strong>确认分组</strong>：先在账户侧确认当前所在分组及其倍率，最终价格按基准价乘以该倍率计算。</li>
 <li><strong>核对模型名</strong>：使用 gpt-5.6-luna 作为模型名；需要后缀变体时，先确认目标后缀在当前接入环境中的可用性。</li>
@@ -239,15 +240,16 @@ with urlopen(request) as response:
 <li><a href="https://a37836323.github.io/gpt-5-6-luna-api/gpt-luna-account-risk/">使用 gpt-5.6-luna API，账号被限制的风险该怎么判断？</a><span>账号风险与数据边界</span></li>
 <li><a href="https://a37836323.github.io/gpt-5-6-luna-api/gpt-56-luna-free-trial/">gpt-5.6-luna API 能免费用吗：先确认额度规则，再开始试用</a><span>核对免费试用条件</span></li>
 <li><a href="https://a37836323.github.io/gpt-5-6-luna-api/api-error-disabled-2026/">遇到 this organization has been disabled，先判断是不是账号被禁</a><span>真实报错排查与替代路径</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-luna-api/gpt-5-6-luna-service-tier-400-fix/">gpt-5.6-luna 报 Invalid service_tier argument：先查项目允许的服务层级</a><span>service_tier 报错排查</span></li>
 </ul>
 </section>
 <section>
 <h2>开始使用</h2>
 <p>查看接入信息并测试 gpt-5.6-luna</p>
-<p><a class="frame-head59" href="https://api.openlux.ai/register?channel=c_vs1ipqiv" rel="nofollow noopener" data-cta="button">注册账号，领取测试额度</a></p>
-<p>官方地址：<a href="https://api.openlux.ai/register?channel=c_vs1ipqiv" rel="nofollow noopener" data-cta="link">OpenLux gpt-5.6-luna API 中转站</a></p>
+<p><a class="row-frame71" href="https://api.openlux.ai/register?channel=c_vs1ipqiv" rel="nofollow noopener" data-cta="register-bottom">注册后创建 API Key</a></p>
+<p>账号入口：<a href="https://api.openlux.ai/register?channel=c_vs1ipqiv" rel="nofollow noopener" data-cta="link">OpenLux gpt-5.6-luna API 中转站</a></p>
 </section>
-<p class="wrap-wrap67">最后更新：2026年08月05日　|　本页由 OpenLux 编写并维护。<br>所有性能与价格数据来自实测，如与官网不一致，以官网实时页面为准。</p>
+<p class="stack-wrap10">最后更新：2026年10月26日　|　本页由 OpenLux 编写并维护。<br>价格资料以文中标注的数据来源和查询日期为准；未完成的性能测试不作为承诺。实际可用性与计费以控制台为准。</p>
 </main>
 <script>
 (function(){
