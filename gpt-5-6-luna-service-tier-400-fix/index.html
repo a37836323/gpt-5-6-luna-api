@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>gpt-5.6-luna 报 400 Invalid service_tier argument 怎么办：flex、fast 与默认层级设置</title>
+<meta name="description" content="OpenAI 2026-10-21 起支持按项目限制服务层级，gpt-5.6-luna 请求的 service_tier 不在允许范围内会返回 400 Invalid service_tier argument。本文按官方文档说明报错含义、flex/fast/default 的对应关系、修复步骤和验证方法。">
+<meta name="keywords" content="gpt-5.6-luna API 中转站,gpt-5.6-luna API,gpt-5.6 Luna,OpenAI API 中转,模型 API 接入,LLM API,API 分组倍率,token 价格">
+<link rel="canonical" href="https://a37836323.github.io/gpt-5-6-luna-api/gpt-5-6-luna-service-tier-400-fix/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:title" content="gpt-5.6-luna 报 400 Invalid service_tier argument 怎么办：flex、fast 与默认层级设置">
+<meta property="og:description" content="OpenAI 2026-10-21 起支持按项目限制服务层级，gpt-5.6-luna 请求的 service_tier 不在允许范围内会返回 400 Invalid service_tier argument。本文按官方文档说明报错含义、flex/fast/default 的对应关系、修复步骤和验证方法。">
+<meta property="og:url" content="https://api.openlux.ai/">
+<meta property="og:site_name" content="OpenLux">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="gpt-5.6-luna 报 400 Invalid service_tier argument 怎么办：flex、fast 与默认层级设置">
+<meta name="twitter:description" content="OpenAI 2026-10-21 起支持按项目限制服务层级，gpt-5.6-luna 请求的 service_tier 不在允许范围内会返回 400 Invalid service_tier argument。本文按官方文档说明报错含义、flex/fast/default 的对应关系、修复步骤和验证方法。">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://api.openlux.ai/#organization",
+      "name": "OpenLux",
+      "url": "https://api.openlux.ai",
+      "description": "2026 gpt-5.6-luna API 中转站接入说明：基准输入价格 $0.2/100 万 token、输出价格 $1.2/100 万 token，分组倍率影响最终价格。",
+      "sameAs": [
+        "https://openlux.ai",
+        "https://doc.openlux.ai"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://a37836323.github.io/gpt-5-6-luna-api/#website",
+      "url": "https://a37836323.github.io/gpt-5-6-luna-api",
+      "name": "gpt-5.6-luna API 中转站 2026：价格与接入说明",
+      "inLanguage": "zh-CN",
+      "publisher": {
+        "@id": "https://api.openlux.ai/#organization"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://a37836323.github.io/gpt-5-6-luna-api/gpt-5-6-luna-service-tier-400-fix/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "OpenLux",
+          "item": "https://api.openlux.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "gpt-5.6-luna API 中转站",
+          "item": "https://a37836323.github.io/gpt-5-6-luna-api/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "gpt-5.6-luna 报 Invalid service_tier argument：先查项目允许的服务层级",
+          "item": "https://a37836323.github.io/gpt-5-6-luna-api/gpt-5-6-luna-service-tier-400-fix/"
+        }
+      ]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://a37836323.github.io/gpt-5-6-luna-api/#application",
+      "name": "OpenLux API",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "url": "https://api.openlux.ai",
+      "description": "2026 gpt-5.6-luna API 中转站接入说明：基准输入价格 $0.2/100 万 token、输出价格 $1.2/100 万 token，分组倍率影响最终价格。",
+      "offers": {
+        "@type": "Offer",
+        "price": "待实测",
+        "priceCurrency": "CNY",
+        "url": "https://api.openlux.ai",
+        "description": "按 token 计费，gpt-5.6-luna 的最终费用以基准价乘以账户所在分组倍率计算。"
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://a37836323.github.io/gpt-5-6-luna-api/gpt-5-6-luna-service-tier-400-fix/#article",
+      "headline": "gpt-5.6-luna 报 Invalid service_tier argument：先查项目允许的服务层级",
+      "datePublished": "2026-08-03",
+      "dateModified": "2026-10-26",
+      "inLanguage": "zh-CN",
+      "author": {
+        "@id": "https://api.openlux.ai/#organization"
+      },
+      "publisher": {
+        "@id": "https://api.openlux.ai/#organization"
+      },
+      "mainEntityOfPage": "https://a37836323.github.io/gpt-5-6-luna-api/gpt-5-6-luna-service-tier-400-fix/"
+    }
+  ]
+}
+</script>
+<style>*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:#fffdfa;color:#1f1c19;font-family:system-ui,"Noto Sans SC","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+line-height:1.75;font-size:16px;-webkit-font-smoothing:antialiased;
+text-rendering:optimizeLegibility}
+.head-row17{max-width:860px;margin:0 auto;padding:32px 20px 64px}
+h1{font-size:1.85rem;line-height:1.4;margin:.2em 0 .6em;letter-spacing:-.01em}
+h2{font-size:1.3rem;margin:2.2em 0 .7em;padding-bottom:.35em;
+border-bottom:2px solid #fde68a}
+h3{font-size:1.08rem;margin:1.6em 0 .5em}
+a{color:#b45309;text-decoration:none}
+a:hover,a:focus-visible{text-decoration:underline}
+code{background:#fffbeb;padding:.15em .4em;border-radius:2px;
+font-size:.9em;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+pre{background:#fffbeb;border:1px solid #fde68a;border-radius:6px;
+padding:16px;overflow-x:auto;font-size:.86rem;line-height:1.6}
+pre code{background:none;padding:0}
+table{width:100%;border-collapse:collapse;margin:1.2em 0;font-size:.94rem}
+th,td{border:1px solid #fde68a;padding:10px 12px;text-align:left}
+th{background:#fffbeb;font-weight:600}
+ul,ol{padding-left:1.5em}
+ul{list-style-type:circle}
+li{margin:.4em 0}
+.wrap-wrap42{background:#fffbeb;border-left:3px solid #b45309;
+border-radius:0 6px 6px 0;padding:14px 18px;margin:1.4em 0}
+.deck-row43{display:inline-block;background:#b45309;color:#fff;
+padding:12px 26px;border-radius:6px;font-weight:600;margin:.6em 0}
+.deck-row43:hover{opacity:.88;text-decoration:none}
+.pane-stack12{color:#71717a;font-size:.86rem;margin-top:3em;
+padding-top:1.2em;border-top:1px solid #fde68a}
+.wrap-bar51{border:1px solid #fde68a;border-radius:6px;
+padding:2px 18px;margin:.8em 0}
+.panel-slot28{overflow-x:auto}
+@media(max-width:600px){
+  body{font-size:15px}
+  h1{font-size:1.5rem}
+  h2{font-size:1.18rem}
+  .head-row17{padding:20px 16px 48px}
+  table{font-size:.85rem}
+  th,td{padding:8px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}</style>
+</head>
+<body>
+<main class="head-row17">
+<p data-notice="price-20261025" style="margin:0 0 16px;padding:10px 14px;border:1px solid #f0c36d;background:#fff8e6;color:#5c4400;border-radius:6px;font-size:14px;line-height:1.6">本页价格与模型信息可能已有变化，请以官网为准：<a href="https://www.openlux.ai/pricing?utm_source=gpt-5-6-luna-api&amp;utm_medium=satellite&amp;utm_campaign=price_notice" style="color:#0b57d0">OpenLux 官网价格页</a></p>
+<p class="list-row55"><a href="https://a37836323.github.io/gpt-5-6-luna-api/">首页</a> ／ gpt-5.6-luna</p>
+<h1>gpt-5.6-luna 报 Invalid service_tier argument：先查项目允许的服务层级</h1>
+<p>如果调用 gpt-5.6-luna 时返回 400，信息是「Invalid service_tier argument: The requested service tier is not allowed for this project.」，原因是这次请求实际要走的服务层级被项目或组织设置禁用了，跟提示词和模型名没有关系。OpenAI 在 2026-10-21 的更新日志中加入了按项目限制服务层级的设置。本页根据官方错误码文档、Fast mode 和 Flex 指南，说明怎么判断、怎么改，以及改完怎么验证。</p>
+
+<section>
+<h2>这条 400 报错的原文和含义是什么？</h2>
+<p>官方错误码文档列出的标题是「400 - Invalid service_tier argument」，返回的是 invalid_request_error，error.param 为 service_tier，信息为「The requested service tier is not allowed for this project.」。文档给出的原因是：请求指定的层级，或者系统最终解析出来的层级，不在该项目允许的范围内。</p>
+<p>这项限制来自 2026-10-21 的更新：OpenAI 允许在 Platform 设置里选择项目可以使用哪些服务层级，组织层面也可以统一限制。所以同一段代码，在一个项目里正常，换到另一个项目、或者管理员改过设置之后，就可能开始报这个 400。</p>
+<p>官方资料：更新日志 https://developers.openai.com/api/docs/changelog ，错误码文档 https://developers.openai.com/api/docs/guides/error-codes 。</p>
+<h2>gpt-5.6-luna 有哪些服务层级，和 service_tier 的取值怎么对应？</h2>
+<p>OpenAI 官方价格页中，gpt-5.6-luna 在 Standard、Batch、Flex 和 Fast 下都列有价格；Ultrafast 表里没有这个模型。各层级的单价不同，具体以官网价格页为准。gpt-5.6-luna 的模型页同时列出它支持 Chat Completions、Responses 和 Batch 接口。</p>
+<p>请求里的 service_tier 和这些层级的对应关系：default 是标准处理；flex 是 Flex 处理；fast 和 priority 是 Fast mode（Priority processing 在 2026-07-30 改名为 Fast mode，官方说明对支持的模型，把 service_tier 设为 priority 和设为 fast 效果相同）；auto 或不写 service_tier 时，使用项目的默认层级。</p>
+<p>错误码文档说明，项目限制作用于 default、flex 和 priority 三个层级，fast 按 priority 判断。Scale Tier 不在这项项目策略之内。</p>
+<h2>没写 service_tier 为什么也会报这个错？</h2>
+<p>这种情况容易被忽略。错误码文档明确写到：不写 service_tier 或设为 auto 的请求，如果最终解析出来的层级被禁用，也会返回这个错误。</p>
+<p>常见的组合是：项目在 Settings → General 中把 Project Service Tier 设成了 Fast（Fast mode 指南说明，这样设置后，没有指定 service_tier 的请求默认走 Fast mode），而项目或组织的允许列表里又没有 priority。这时代码里一个 service_tier 都没写，请求也会被拒。</p>
+<p>所以排查时不能只搜代码里有没有 service_tier，还要看项目的默认层级设置。</p>
+<h2>按什么顺序排查和修复？</h2>
+<p>第一步，确认报错的是哪个项目。记下这次请求用的 API Key 属于哪个项目，同时保存完整响应体，确认 error.param 是 service_tier。</p>
+<p>第二步，查看允许的层级。官方要求同时检查项目设置和组织设置里允许的服务层级；项目不能启用组织已经禁止的层级。如果组织层面禁用了 priority，只改项目设置是没有用的，需要组织管理员处理。</p>
+<p>第三步，修改请求或设置，二选一。一是把请求里的 service_tier 改成项目允许的层级，例如项目只允许 default，就去掉 flex 或 fast；二是请求本来用的是 auto 或不写，就按官方建议修改项目设置，让解析出来的层级在允许范围内，比如把项目默认层级改回允许的层级，或者把该层级加入允许列表。</p>
+<h2>用 flex 跑 gpt-5.6-luna 时还要注意什么？</h2>
+<p>Flex 指南说明：Flex 处理用于 Responses 或 Chat Completions 请求，费用更低，代价是响应更慢，偶尔会资源不足；适合模型评测、数据补全、异步任务等非生产或低优先级工作。Flex 目前是 beta，可用模型以价格页为准，价格页的 Flex 一栏列有 gpt-5.6-luna。</p>
+<p>Flex 资源不足时返回 429 Resource Unavailable，这种情况官方说明不计费。这个 429 表示资源暂时不足，和上面项目权限导致的 400 不是同一个问题。官方给了两种处理办法：能接受延迟就用指数退避重试；更看重请求能完成、可以接受偶尔多付费用，就回退到标准处理：在重试请求里把 service_tier 设为 auto 或去掉该参数（这时实际使用的是项目默认层级）。注意：如果项目默认层级本身被禁用，这一步又会触发 400。</p>
+<p>Flex 响应较慢，官方提示 SDK 默认超时是 10 分钟，长提示或复杂任务可能需要调大，示例里把 Python 的 timeout 设为 900 秒。SDK 遇到 408 Request Timeout 会自动重试两次后再抛出异常。</p>
+<p>官方资料：https://developers.openai.com/api/docs/guides/flex-processing 。</p>
+<h2>用 fast 跑 gpt-5.6-luna 时还要注意什么？</h2>
+<p>开 Fast mode 可以在单个请求里写 service_tier 为 fast，也可以把项目默认层级设为 Fast。Fast mode 指南没有逐个列出支持的模型，只说完整列表以价格页为准，价格页的 Fast 一栏列有 gpt-5.6-luna。指南只给出了 gpt-5.6-sol 的提速倍数，gpt-5.6-luna 实际能快多少，官方没有写。</p>
+<p>同一模型的标准处理和 Fast mode 共用一套限流额度。流量增长过快时，系统可能把部分 Fast 请求降回标准速度并按标准价计费，此时响应里的 service_tier 为 default。官方的经验值是：输入达到每分钟 100 万 token 后，每 15 分钟增幅不超过 50%。</p>
+<p>官方还建议不要在 Fast mode 下跑大型 ETL 或批处理任务。gpt-5.6-luna 本来就定位于成本敏感、大批量的场景，离线批量任务可以考虑 Batch 接口或 Flex，把 Fast 留给对延迟敏感的线上请求。</p>
+<p>官方资料：https://developers.openai.com/api/docs/guides/fast-mode 。</p>
+<h2>改完以后怎么确认层级生效？</h2>
+<p>第一，用同一个项目的 Key 发一条最小请求，确认返回 200，不再出现 Invalid service_tier argument。</p>
+<p>第二，看响应对象里的 service_tier 字段。Fast mode 指南说明：对 GPT-5.6 及更早的模型，请求写 priority 或 fast，响应里都返回 priority，所以 gpt-5.6-luna 的 Fast 请求看到 priority 是正常的；如果看到 default，说明请求被降级为标准处理，或者走的就是标准层级。</p>
+<p>第三，在用量面板里按 service tier 分组，核对各层级的用量是否符合预期。旧模型的 Fast 用量在面板里同样显示为 priority。</p>
+<p>第四，用 flex 的任务要单独统计 429 Resource Unavailable 的次数和重试结果，确认退避或回退逻辑能让任务最终完成。</p>
+<h2>通过中转站调用 gpt-5.6-luna，还会遇到这个报错吗？</h2>
+<p>上面的项目设置和允许列表都是 OpenAI 官方账号里的设置。通过中转站调用时，请求转发到哪个上游项目、service_tier 会不会原样传过去、按哪个层级计费，都由平台的配置决定，本页无法保证跟官方直连一致。</p>
+<p>如果通过中转调用时收到含 service_tier 的报错，先去掉 service_tier 参数，用默认层级发一条最小请求；如果仍然失败，把完整响应体和请求时间交给平台核对。需要固定使用某个层级时，先确认平台是否支持、按什么价格计费，价格以官网价格页和平台显示为准。</p>
+<p>还有其他问题？完整文档与客服入口见 <a href="https://api.openlux.ai/register?channel=c_vs1ipqiv" rel="nofollow noopener" data-cta="docs">点此进入</a>。</p>
+</section>
+<section>
+<h2>这个站还有这些内容</h2>
+<ul class="row-wrap69">
+<li><a href="https://a37836323.github.io/gpt-5-6-luna-api/quickstart/">gpt-5.6-luna API 在国内怎么接入？</a><span>接入步骤与可直接复制的代码</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-luna-api/compare/">gpt-5.6-luna 用官方直连还是中转？逐项对比</a><span>逐项对比，含中转方案的局限</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-luna-api/faq/">gpt-5.6-luna API 常见问题</a><span>接入时最常遇到的问题</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-luna-api/gpt-56-luna-api-buy/">国内怎么买 gpt-5.6-luna API：下单前应核对什么</a><span>购买渠道与结算说明</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-luna-api/gpt56-luna-payment-methods/">没有国际信用卡，gpt-5.6-luna API 的付款方式怎么确认</a><span>gpt-5.6-luna 支付方式</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-luna-api/api-relay-explained/">API 中转站的工作原理：gpt-5.6-luna 请求为何会多一跳</a><span>理解 API 中转原理</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-luna-api/claude-code-proxy-config/">在 Claude Code 里接入 gpt-5.6-luna</a><span>Claude Code 中转配置</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-luna-api/gpt-56-luna-cost-value/">gpt-5.6-luna 便宜吗：按用量和分组倍率算 2026 成本</a><span>gpt-5.6-luna 成本测算</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-luna-api/gpt-luna-account-risk/">使用 gpt-5.6-luna API，账号被限制的风险该怎么判断？</a><span>账号风险与数据边界</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-luna-api/gpt-56-luna-free-trial/">gpt-5.6-luna API 能免费用吗：先确认额度规则，再开始试用</a><span>核对免费试用条件</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-luna-api/api-error-disabled-2026/">遇到 this organization has been disabled，先判断是不是账号被禁</a><span>真实报错排查与替代路径</span></li>
+</ul>
+</section>
+<section>
+<h2>开始使用</h2>
+<p>查看接入信息并测试 gpt-5.6-luna</p>
+<p><a class="deck-row43" href="https://api.openlux.ai/register?channel=c_vs1ipqiv" rel="nofollow noopener" data-cta="register-bottom">注册后创建 API Key</a></p>
+<p>账号入口：<a href="https://api.openlux.ai/register?channel=c_vs1ipqiv" rel="nofollow noopener" data-cta="link">OpenLux gpt-5.6-luna API 中转站</a></p>
+</section>
+<p class="pane-stack12">最后更新：2026年10月26日　|　本页由 OpenLux 编写并维护。<br>价格资料以文中标注的数据来源和查询日期为准；未完成的性能测试不作为承诺。实际可用性与计费以控制台为准。</p>
+</main>
+<script>
+(function(){
+  try{
+    var EP='https://tk.openlux.ai/collect',S='gpt-5-6-luna-api',L='zh-CN',V=1;
+    var sid=Math.random().toString(36).slice(2)+Date.now().toString(36);
+    function send(type,extra){
+      try{
+        var p={v:V,t:type,s:S,l:L,sid:sid,
+               r:document.referrer||'',
+               p:location.pathname||'/',
+               q:location.search||'',
+               sw:screen.width||0,
+               tz:(Intl.DateTimeFormat().resolvedOptions()||{}).timeZone||''};
+        for(var k in extra){p[k]=extra[k];}
+        var body=JSON.stringify(p);
+        if(navigator.sendBeacon){
+          navigator.sendBeacon(EP,new Blob([body],{type:'text/plain;charset=UTF-8'}));
+        }else{
+          fetch(EP,{method:'POST',body:body,keepalive:true,mode:'no-cors'});
+        }
+      }catch(e){}
+    }
+    if(document.visibilityState==='prerender'){
+      document.addEventListener('visibilitychange',function h(){
+        if(document.visibilityState!=='prerender'){
+          document.removeEventListener('visibilitychange',h);send('view');
+        }
+      });
+    }else{
+      send('view');
+    }
+    document.addEventListener('click',function(e){
+      var a=e.target&&e.target.closest?e.target.closest('a[data-cta]'):null;
+      if(!a)return;
+      send('click',{c:a.getAttribute('data-cta')||'',h:a.href||''});
+    },{capture:true,passive:true});
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
