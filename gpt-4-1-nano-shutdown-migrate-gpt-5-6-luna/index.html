@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>gpt-4.1-nano 已于 10 月 23 日下线：换成 gpt-5.6-luna 要改哪些参数</title>
+<meta name="description" content="OpenAI 弃用页写明 gpt-4.1-nano 及快照 gpt-4.1-nano-2025-04-14 于 2026-10-23 下线，替代模型是 gpt-5.6-luna。本文按官方文档说明换模型后推理强度默认 medium、max_tokens 与输出上限、微调模型不能平移等要改的地方，以及验证方法。">
+<meta name="keywords" content="gpt-5.6-luna API 中转站,gpt-5.6-luna API,gpt-5.6 Luna,OpenAI API 中转,模型 API 接入,LLM API,API 分组倍率,token 价格">
+<link rel="canonical" href="https://a37836323.github.io/gpt-5-6-luna-api/gpt-4-1-nano-shutdown-migrate-gpt-5-6-luna/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:title" content="gpt-4.1-nano 已于 10 月 23 日下线：换成 gpt-5.6-luna 要改哪些参数">
+<meta property="og:description" content="OpenAI 弃用页写明 gpt-4.1-nano 及快照 gpt-4.1-nano-2025-04-14 于 2026-10-23 下线，替代模型是 gpt-5.6-luna。本文按官方文档说明换模型后推理强度默认 medium、max_tokens 与输出上限、微调模型不能平移等要改的地方，以及验证方法。">
+<meta property="og:url" content="https://api.openlux.ai/">
+<meta property="og:site_name" content="OpenLux">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="gpt-4.1-nano 已于 10 月 23 日下线：换成 gpt-5.6-luna 要改哪些参数">
+<meta name="twitter:description" content="OpenAI 弃用页写明 gpt-4.1-nano 及快照 gpt-4.1-nano-2025-04-14 于 2026-10-23 下线，替代模型是 gpt-5.6-luna。本文按官方文档说明换模型后推理强度默认 medium、max_tokens 与输出上限、微调模型不能平移等要改的地方，以及验证方法。">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://api.openlux.ai/#organization",
+      "name": "OpenLux",
+      "url": "https://api.openlux.ai",
+      "description": "2026 gpt-5.6-luna API 中转站接入说明：基准输入价格 $0.2/100 万 token、输出价格 $1.2/100 万 token，分组倍率影响最终价格。",
+      "sameAs": [
+        "https://openlux.ai",
+        "https://doc.openlux.ai"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://a37836323.github.io/gpt-5-6-luna-api/#website",
+      "url": "https://a37836323.github.io/gpt-5-6-luna-api",
+      "name": "gpt-5.6-luna API 中转站 2026：价格与接入说明",
+      "inLanguage": "zh-CN",
+      "publisher": {
+        "@id": "https://api.openlux.ai/#organization"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://a37836323.github.io/gpt-5-6-luna-api/gpt-4-1-nano-shutdown-migrate-gpt-5-6-luna/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "OpenLux",
+          "item": "https://api.openlux.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "gpt-5.6-luna API 中转站",
+          "item": "https://a37836323.github.io/gpt-5-6-luna-api/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "gpt-4.1-nano 下线后换 gpt-5.6-luna：只改模型名还不够",
+          "item": "https://a37836323.github.io/gpt-5-6-luna-api/gpt-4-1-nano-shutdown-migrate-gpt-5-6-luna/"
+        }
+      ]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://a37836323.github.io/gpt-5-6-luna-api/#application",
+      "name": "OpenLux API",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "url": "https://api.openlux.ai",
+      "description": "2026 gpt-5.6-luna API 中转站接入说明：基准输入价格 $0.2/100 万 token、输出价格 $1.2/100 万 token，分组倍率影响最终价格。",
+      "offers": {
+        "@type": "Offer",
+        "price": "待实测",
+        "priceCurrency": "CNY",
+        "url": "https://api.openlux.ai",
+        "description": "按 token 计费，gpt-5.6-luna 的最终费用以基准价乘以账户所在分组倍率计算。"
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://a37836323.github.io/gpt-5-6-luna-api/gpt-4-1-nano-shutdown-migrate-gpt-5-6-luna/#article",
+      "headline": "gpt-4.1-nano 下线后换 gpt-5.6-luna：只改模型名还不够",
+      "datePublished": "2026-08-03",
+      "dateModified": "2026-10-29",
+      "inLanguage": "zh-CN",
+      "author": {
+        "@id": "https://api.openlux.ai/#organization"
+      },
+      "publisher": {
+        "@id": "https://api.openlux.ai/#organization"
+      },
+      "mainEntityOfPage": "https://a37836323.github.io/gpt-5-6-luna-api/gpt-4-1-nano-shutdown-migrate-gpt-5-6-luna/"
+    }
+  ]
+}
+</script>
+<style>*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:#fffdfa;color:#1f1c19;font-family:system-ui,"Noto Sans SC","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+line-height:1.75;font-size:16px;-webkit-font-smoothing:antialiased;
+text-rendering:optimizeLegibility}
+.head-row17{max-width:860px;margin:0 auto;padding:32px 20px 64px}
+h1{font-size:1.85rem;line-height:1.4;margin:.2em 0 .6em;letter-spacing:-.01em}
+h2{font-size:1.3rem;margin:2.2em 0 .7em;padding-bottom:.35em;
+border-bottom:2px solid #fde68a}
+h3{font-size:1.08rem;margin:1.6em 0 .5em}
+a{color:#b45309;text-decoration:none}
+a:hover,a:focus-visible{text-decoration:underline}
+code{background:#fffbeb;padding:.15em .4em;border-radius:2px;
+font-size:.9em;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+pre{background:#fffbeb;border:1px solid #fde68a;border-radius:6px;
+padding:16px;overflow-x:auto;font-size:.86rem;line-height:1.6}
+pre code{background:none;padding:0}
+table{width:100%;border-collapse:collapse;margin:1.2em 0;font-size:.94rem}
+th,td{border:1px solid #fde68a;padding:10px 12px;text-align:left}
+th{background:#fffbeb;font-weight:600}
+ul,ol{padding-left:1.5em}
+ul{list-style-type:circle}
+li{margin:.4em 0}
+.wrap-wrap42{background:#fffbeb;border-left:3px solid #b45309;
+border-radius:0 6px 6px 0;padding:14px 18px;margin:1.4em 0}
+.deck-row43{display:inline-block;background:#b45309;color:#fff;
+padding:12px 26px;border-radius:6px;font-weight:600;margin:.6em 0}
+.deck-row43:hover{opacity:.88;text-decoration:none}
+.pane-stack12{color:#71717a;font-size:.86rem;margin-top:3em;
+padding-top:1.2em;border-top:1px solid #fde68a}
+.wrap-bar51{border:1px solid #fde68a;border-radius:6px;
+padding:2px 18px;margin:.8em 0}
+.panel-slot28{overflow-x:auto}
+@media(max-width:600px){
+  body{font-size:15px}
+  h1{font-size:1.5rem}
+  h2{font-size:1.18rem}
+  .head-row17{padding:20px 16px 48px}
+  table{font-size:.85rem}
+  th,td{padding:8px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}</style>
+</head>
+<body>
+<main class="head-row17">
+<p data-notice="price-20261025" style="margin:0 0 16px;padding:10px 14px;border:1px solid #f0c36d;background:#fff8e6;color:#5c4400;border-radius:6px;font-size:14px;line-height:1.6">本页价格与模型信息可能已有变化，请以官网为准：<a href="https://www.openlux.ai/pricing?utm_source=gpt-5-6-luna-api&amp;utm_medium=satellite&amp;utm_campaign=price_notice" style="color:#0b57d0">OpenLux 官网价格页</a></p>
+<p class="list-row55"><a href="https://a37836323.github.io/gpt-5-6-luna-api/">首页</a> ／ gpt-5.6-luna</p>
+<h1>gpt-4.1-nano 下线后换 gpt-5.6-luna：只改模型名还不够</h1>
+<p>OpenAI 弃用页（Deprecations）在 2026-04-22 的旧版 GPT 快照条目里列出：gpt-4.1-nano 和 gpt-4.1-nano-2025-04-14 于 2026 年 10 月 23 日下线，推荐替代模型是 gpt-5.6-luna。如果你的分类、抽取、路由类调用最近开始失败，先查代码里是不是还在用这两个名字。gpt-5.6-luna 是推理模型，不写推理强度时默认按 medium 推理，输出上限也把推理 token 算在内，所以只把 model 字段换掉，可能变慢、变贵，或者拿到空输出。本页根据官方弃用页、gpt-5.6-luna 模型页、推理指南和 Chat Completions 接口参考，列出要改的地方和改完怎么验证。</p>
+
+<section>
+<h2>gpt-4.1-nano 什么时候下线，官方让换成什么？</h2>
+<p>官方弃用页（https://developers.openai.com/api/docs/deprecations）2026-04-22「Legacy GPT model snapshots」条目的表格里，gpt-4.1-nano 与 gpt-4.1-nano-2025-04-14 的替代模型写的是 gpt-5.6-luna，下线日期是 2026 年 10 月 23 日。同一条目下注明，这些模型的微调版本与对应的基础模型按同一时间表下线。</p>
+<p>弃用页对下线的说明是：到了下线日期，模型或端点将不再可以访问。页面没有写明下线后请求会返回哪个错误码，所以不要只靠某一种报错文字判断，应直接在代码和配置里搜索 gpt-4.1-nano 这两个名字。</p>
+<p>要用程序确认某个模型有没有下线日期，可以调用 List models（GET /v1/models）或 Retrieve a model，查看 shutdown_date 字段：有值时是 YYYY-MM-DD 格式的日期，没有公布下线日期时为 null。弃用页还提到，部分情况下开发者可以联系销售，通过专用容量在下线日期之后继续访问。</p>
+<p>另外，同一页 2026-06-11 的条目里，gpt-5-nano（gpt-5-nano-2025-08-07）的替代模型也是 gpt-5.6-luna，下线日期为 2026-12-11。两个 nano 都在用的项目，可以按本页的步骤一次迁完。</p>
+<h2>只改模型名会出什么问题：推理强度默认变成 medium</h2>
+<p>gpt-5.6-luna 模型页（https://developers.openai.com/api/docs/models/gpt-5.6-luna）写明它是面向成本敏感、高并发场景的 GPT-5.6 模型，大致对应早期 GPT-5 系列的 nano 档；reasoning.effort 可选 none、low、medium（默认）、high、xhigh、max。推理指南（https://developers.openai.com/api/docs/guides/reasoning）也写明：不写 reasoning.effort 时，GPT-5.6 默认 medium。</p>
+<p>gpt-4.1-nano 的老代码里通常没有推理强度参数。换成 gpt-5.6-luna 后如果还不写，每次请求都会按 medium 推理，耗时和 token 用量都可能比原来多，这对原来追求低延迟、大批量的 nano 流程影响最大。</p>
+<p>官方给的选择依据：推理指南把 none 描述为适合不需要推理、也没有多步工具调用的延迟敏感任务；GPT-5.6 升级指南（https://developers.openai.com/api/docs/guides/upgrading-to-gpt-5p6-sol）建议把 medium 作为均衡的起点，延迟敏感的任务用 low，如果用 none，就把它作为延迟基准，并在任务能从推理或工具调用中获益时再测一下 low。high、xhigh 等评测证明能提升质量时再用，max 留给最难、质量优先的任务。</p>
+<p>写法上，Responses API 用 &quot;reasoning&quot;: {&quot;effort&quot;: &quot;none&quot;}，Chat Completions 用 &quot;reasoning_effort&quot;: &quot;none&quot;。建议在迁移的第一版里显式写出推理强度，不要依赖默认值。</p>
+<h2>max_tokens 要改成什么，输出上限为什么要留大一点？</h2>
+<p>Chat Completions 接口参考（https://developers.openai.com/api/reference/resources/chat/subresources/completions/methods/create）写明：max_tokens 已弃用，改用 max_completion_tokens，并且 max_tokens 与 o 系列模型不兼容。max_completion_tokens 是可生成 token 数的上限，包含可见输出 token 和推理 token。旧代码里如果还写着 max_tokens，迁移时一起换成 max_completion_tokens。</p>
+<p>因为推理 token 也计入上限，原来给 nano 设的很小的输出上限（只够放一个标签或一小段 JSON）换到 gpt-5.6-luna 后可能不够用。推理指南对 Responses API 的说明是：生成的 token 达到上下文上限或 max_output_tokens 时，响应 status 为 incomplete，incomplete_details.reason 为 max_output_tokens，而且可能在产生任何可见输出之前就发生，这时输入和推理 token 照样计费，却拿不到可见回答。</p>
+<p>官方建议刚开始试用推理模型时，为推理和输出至少预留 25,000 个 token，熟悉实际推理用量后再调整。把推理强度设为 none 或 low 的流程，也要用真实输入检查一次输出是否完整，不要沿用旧上限后不做检查。</p>
+<p>模型页列出的规格是上下文窗口 1,050,000 个 token、最大输出 128,000 个 token，输入支持文本和图片，输出只有文本。</p>
+<h2>temperature 等参数、接口和功能还能照用吗？</h2>
+<p>接口方面，模型页列出 gpt-5.6-luna 支持 Chat Completions（v1/chat/completions）、Responses（v1/responses）和 Batch（v1/batch），所以原来走 Chat Completions 或 Batch 的 nano 调用不必为了换模型而换接口。推理指南同时说明，推理模型配合 Responses API 效果更好，Chat Completions 仍然支持；升级指南建议推理、工具调用和多轮对话用 Responses API。</p>
+<p>功能方面，模型页把流式输出、函数调用、结构化输出标为支持，Fine-tuning 标为不支持；网页搜索、文件检索、代码解释器、MCP 等工具列在「使用 Responses API 时支持的工具」下。音频、视频模态不支持，Embeddings、Realtime 和语音相关端点也不在支持之列，原来顺带用 nano 做这些事的，需要另选模型。</p>
+<p>采样参数方面，官方 GPT-5.6 升级说明没有逐项列出 temperature、top_p、logprobs 的兼容规则。旧请求里带着这些参数的，先用一条保留原参数的请求测试；如果被拒绝，按返回的错误信息里指出的参数调整，不要一次删掉一批参数来让请求跑通，也不要凭猜测改写。</p>
+<p>多轮对话方面，升级指南说明 GPT-5.6 默认 reasoning.context 为 all_turns，会把之前轮次可用的推理带入下一轮，更早的模型默认 current_turn。自己管理对话历史时，要原样回传之前的用户输入和每一个响应输出项。</p>
+<h2>微调过的 gpt-4.1-nano 怎么办？</h2>
+<p>弃用页写明，这批模型的微调版本与基础模型同一天下线，也就是基于 gpt-4.1-nano 微调出的模型同样在 2026-10-23 停用。</p>
+<p>gpt-5.6-luna 模型页的 Fine-tuning 一项标为不支持，所以不能把原来的训练数据直接拿去在 gpt-5.6-luna 上再微调一个替代品。</p>
+<p>可行的做法是：把微调想达到的效果（固定输出格式、领域术语、分类标准）改成提示词里的说明和少量示例，必要时配合结构化输出约束格式，再用原来的评测集比较新旧结果；如果评测达不到要求、业务又必须继续用原模型，按弃用页的说法联系 OpenAI 销售了解专用容量。</p>
+<h2>迁移步骤和怎么确认改好了</h2>
+<p>第一步，盘点：在代码、环境变量、配置文件、模型白名单、计费或价格元数据、测试用例里搜索 gpt-4.1-nano 和 gpt-4.1-nano-2025-04-14，同时搜一下 gpt-5-nano，它在 2026-12-11 下线，替代模型同样是 gpt-5.6-luna。</p>
+<p>第二步，改请求：model 改为 gpt-5.6-luna；显式写推理强度（低延迟流程先用 none 作基准，再对比 low）；max_tokens 换成 max_completion_tokens，并把上限调到能容纳推理 token 的水平。</p>
+<p>第三步，对比测试：拿一批有代表性的真实输入，分别测试 none 和 low（或 medium），记录任务正确率、结构化输出能否解析、首字延迟和总耗时，以及响应 usage 里的输入、输出、推理和缓存 token。</p>
+<p>成功标准：代码里已经没有调用 gpt-4.1-nano 的地方；新请求返回的 model 字段是 gpt-5.6-luna；没有因为输出上限出现空回答或回答被截断；正确率和解析成功率不低于旧模型；每个成功任务的耗时和 token 用量在可接受范围内。还没验证到的场景要单独记下来，不要因为模型名已经改完就当作迁移结束。</p>
+<h2>通过中转服务调用 gpt-5.6-luna 要注意什么？</h2>
+<p>先调用中转服务的 /v1/models，确认列表里有 gpt-5.6-luna，并以列表里的模型名为准。</p>
+<p>再发一条带推理强度参数（Chat Completions 的 reasoning_effort 或 Responses 的 reasoning.effort）和输出上限参数（Chat Completions 的 max_completion_tokens 或 Responses 的 max_output_tokens）的最小请求，确认参数被原样传给上游：看返回的 model 字段和 usage 里的推理 token 是否符合预期。</p>
+<p>价格方面，gpt-5.6-luna 的单价、缓存和长输入的计费规则以官网价格页为准；通过中转调用时，以平台价格页展示的为准。</p>
+<p>还有其他问题？完整文档与客服入口见 <a href="https://api.openlux.ai/register?channel=c_vs1ipqiv" rel="nofollow noopener" data-cta="docs">点此进入</a>。</p>
+</section>
+<section>
+<h2>这个站还有这些内容</h2>
+<ul class="row-wrap69">
+<li><a href="https://a37836323.github.io/gpt-5-6-luna-api/quickstart/">gpt-5.6-luna API 在国内怎么接入？</a><span>接入步骤与可直接复制的代码</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-luna-api/compare/">gpt-5.6-luna 用官方直连还是中转？逐项对比</a><span>逐项对比，含中转方案的局限</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-luna-api/faq/">gpt-5.6-luna API 常见问题</a><span>接入时最常遇到的问题</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-luna-api/gpt-56-luna-api-buy/">国内怎么买 gpt-5.6-luna API：下单前应核对什么</a><span>购买渠道与结算说明</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-luna-api/gpt56-luna-payment-methods/">没有国际信用卡，gpt-5.6-luna API 的付款方式怎么确认</a><span>gpt-5.6-luna 支付方式</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-luna-api/api-relay-explained/">API 中转站的工作原理：gpt-5.6-luna 请求为何会多一跳</a><span>理解 API 中转原理</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-luna-api/claude-code-proxy-config/">在 Claude Code 里接入 gpt-5.6-luna</a><span>Claude Code 中转配置</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-luna-api/gpt-56-luna-cost-value/">gpt-5.6-luna 便宜吗：按用量和分组倍率算 2026 成本</a><span>gpt-5.6-luna 成本测算</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-luna-api/gpt-luna-account-risk/">使用 gpt-5.6-luna API，账号被限制的风险该怎么判断？</a><span>账号风险与数据边界</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-luna-api/gpt-56-luna-free-trial/">gpt-5.6-luna API 能免费用吗：先确认额度规则，再开始试用</a><span>核对免费试用条件</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-luna-api/api-error-disabled-2026/">遇到 this organization has been disabled，先判断是不是账号被禁</a><span>真实报错排查与替代路径</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-luna-api/gpt-5-6-luna-service-tier-400-fix/">gpt-5.6-luna 报 Invalid service_tier argument：先查项目允许的服务层级</a><span>service_tier 报错排查</span></li>
+</ul>
+</section>
+<section>
+<h2>开始使用</h2>
+<p>查看接入信息并测试 gpt-5.6-luna</p>
+<p><a class="deck-row43" href="https://api.openlux.ai/register?channel=c_vs1ipqiv" rel="nofollow noopener" data-cta="register-bottom">注册后创建 API Key</a></p>
+<p>账号入口：<a href="https://api.openlux.ai/register?channel=c_vs1ipqiv" rel="nofollow noopener" data-cta="link">OpenLux gpt-5.6-luna API 中转站</a></p>
+</section>
+<p class="pane-stack12">最后更新：2026年10月29日　|　本页由 OpenLux 编写并维护。<br>价格资料以文中标注的数据来源和查询日期为准；未完成的性能测试不作为承诺。实际可用性与计费以控制台为准。</p>
+</main>
+<script>
+(function(){
+  try{
+    var EP='https://tk.openlux.ai/collect',S='gpt-5-6-luna-api',L='zh-CN',V=1;
+    var sid=Math.random().toString(36).slice(2)+Date.now().toString(36);
+    function send(type,extra){
+      try{
+        var p={v:V,t:type,s:S,l:L,sid:sid,
+               r:document.referrer||'',
+               p:location.pathname||'/',
+               q:location.search||'',
+               sw:screen.width||0,
+               tz:(Intl.DateTimeFormat().resolvedOptions()||{}).timeZone||''};
+        for(var k in extra){p[k]=extra[k];}
+        var body=JSON.stringify(p);
+        if(navigator.sendBeacon){
+          navigator.sendBeacon(EP,new Blob([body],{type:'text/plain;charset=UTF-8'}));
+        }else{
+          fetch(EP,{method:'POST',body:body,keepalive:true,mode:'no-cors'});
+        }
+      }catch(e){}
+    }
+    if(document.visibilityState==='prerender'){
+      document.addEventListener('visibilitychange',function h(){
+        if(document.visibilityState!=='prerender'){
+          document.removeEventListener('visibilitychange',h);send('view');
+        }
+      });
+    }else{
+      send('view');
+    }
+    document.addEventListener('click',function(e){
+      var a=e.target&&e.target.closest?e.target.closest('a[data-cta]'):null;
+      if(!a)return;
+      send('click',{c:a.getAttribute('data-cta')||'',h:a.href||''});
+    },{capture:true,passive:true});
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
